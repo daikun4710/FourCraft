@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ヘッダー_PCログイン</title>
+    <title>ヘッダー_ログイン</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <style>
                 /* 992px以上の時に適用 */
@@ -16,10 +16,18 @@
                 margin-right:-4%;margin-left:1.5px
             }
         }
+        /* ヘッダー固定 */
+        #header{
+            width:100%;
+            position:fixed;
+            top:0;
+            left:0;
+            z-index: 9999;
+        }
     </style>
 </head>
 <body>    
-    <header class="p-3 bg-dark text-white">
+    <header class="p-3 bg-dark text-white" id="header">
         <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             
@@ -45,7 +53,9 @@
             
         </div>
         </div>
-    </header>
+    </header><!-- ↑ ヘッダー -->
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
 </body>
 </html>
