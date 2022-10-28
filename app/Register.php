@@ -28,12 +28,12 @@
           <div class="col-md-6 m-auto">          
             <div class="form-floating">
               <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"width=100>
-              <label for="floatingInput">Email address</label>
+              <label for="floatingInput">メールアドレス</label>
             </div>
 
             <div class="form-floating pb-4">
               <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-              <label for="floatingPassword">Password</label>
+              <label for="floatingPassword">パスワード</label>
             </div>
             
             <button class="w-100 btn btn-lg btn-danger"type="submit">登録</button>
