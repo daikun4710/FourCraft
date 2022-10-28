@@ -16,10 +16,17 @@
                 margin-right:-4%;margin-left:1.5px
             }
         }
+        /* ヘッダー固定 */
+        #header{
+            width:100%;
+            position:fixed;
+            top:0;
+            left:0;
+        }
     </style>
 </head>
 <body>    
-    <header class="p-3 bg-dark text-white">
+    <header class="p-3 bg-dark text-white" id="header">
         <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             
@@ -45,7 +52,9 @@
             
         </div>
         </div>
-    </header>
+    </header><!-- ↑ ヘッダー -->
+    
+    <div style="height: 1800px;"></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
 </body>
 </html>

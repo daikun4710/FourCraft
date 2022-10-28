@@ -6,10 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ヘッダー_モバイルバー付き</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-
+    <style>
+      /* ヘッダー固定 */
+      #header{
+            width:100%;
+            position:fixed;
+            top:0;
+            left:0;
+        }
+    </style>
 </head>
 <body>    
-<nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
+<nav class="navbar navbar-dark bg-dark" aria-label="First navbar example" id="header">
     <div class="container-fluid">
         <a href="/" class="d-flex align-items-center text-white text-decoration-none"
         id ="logo">
@@ -17,7 +25,7 @@
         <use xlink:href="#bootstrap"></use>
         </a>        
 
-      <a class="navbar-brand me-0" href="#">Four Craft</a>
+      <a class="navbar-brand me-0" href="../ProductList.php">Four Craft</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
       data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -26,15 +34,17 @@
       <div class="collapse navbar-collapse" id="navbarsExample01">
         <ul class="navbar-nav me-auto mb-2">
             <li class="nav-item text-center">
-                <a class="nav-link active me-2" aria-current="page" href="#">商品を出品する</a>
+                <a class="nav-link active me-2" aria-current="page" href="../Login.php">商品を出品する</a>
             </li>
             <form>
                 <input class="form-control" type="text" placeholder="検索..." aria-label="Search">
             </form>
           <li class="nav-item">
             <div class="text-center mt-2" >
-                <button type="button" class="btn btn-outline-light me-2">ログイン</button>
-                <button type="button" class="btn btn-warning">新規登録</button>
+                <button type="button" onclick="location.href='../Login.php'"
+                 class="btn btn-outline-light me-2">ログイン</button>
+                <button type="button" onclick="location.href='../Register.php'"
+                 class="btn btn-warning">新規登録</button>
             </div>
           </li>
           <!-- <li class="nav-item">
@@ -52,7 +62,9 @@
         
       </div>
     </div>
-  </nav>
+  </nav><!-- ↑ ヘッダー -->
+
+  <div style="height: 1800px;"></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
 </body>
 </html>
