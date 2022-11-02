@@ -79,11 +79,11 @@
 <body>
 
     <div id="title">
-      入札完了
+      落札完了
     </div>
   
     <div id="message">
-        入札が完了しました
+        落札が完了しました
     </div>
 
     <p>
