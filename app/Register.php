@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
   </head>
   <body>
-    <a href="productList.php">
+    <a href="ProductList.php">
       <h1>FOURCRAFT</h1>
     </a>
 
