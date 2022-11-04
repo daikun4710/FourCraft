@@ -75,18 +75,21 @@
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <div class="col">
-          <div class="card shadow-sm">
-            <img src="../file/switch.jpg" class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><img src="../file/switch.jpg" width="100%"><title>Placeholder</title><rect width="100%" height="100%"> -->
-          </rect></svg>
+          <a href="ProductDetailUnconfirmed.php">
+            <div class="card shadow-sm">
+              <img src="../file/switch.jpg" class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><img src="../file/switch.jpg" width="100%"><title>Placeholder</title><rect width="100%" height="100%"> -->
+            </rect></svg>
 
-            <div class="card-body">
-              <p class="card-text">商品名</p>
-              <div class="d-flex justify-content-between align-items-center">
-              <small class="text-muted">現在:<font color="#ff0000">○○円</font></small>
+              <div class="card-body">
+                <p class="card-text">商品名</p>
+                <div class="d-flex justify-content-between align-items-center">
+                <small class="text-muted">現在:<font color="#ff0000">○○円</font></small>
+                </div>
               </div>
             </div>
-          </div>
+          </a>
+
         </div>
         <div class="col">
           <div class="card shadow-sm">
