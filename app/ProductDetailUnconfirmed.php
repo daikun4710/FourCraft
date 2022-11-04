@@ -32,7 +32,7 @@
     }
 
     #ProductDetailUnconfirmed_syohingazou{
-        height: 350px;
+        height: 100%;
         width: auto;
         background-color: #D9D9D9;
         margin-top: 10px;
@@ -335,6 +335,52 @@
             margin-left:9%;
         }
 
+        /* レスポンシブ対応 */
+        @media screen and (max-width: 990px) {
+        #ProductDetailUnconfirmed_syohinmei{
+            margin-top: 210px;
+        }
+      }
+
+      @media screen and (max-width: 990px) {
+        #ProductDetailUnconfirmed_syohingazou{
+            height: 250px;
+            width: auto;
+        }
+      }
+
+      @media screen and (max-width: 990px) {
+        #ProductDetailUnconfirmed_genzaikakaku{
+            margin-left:auto;
+            margin-right:auto;
+            margin-top: 5%;
+        }
+      }
+
+      @media screen and (max-width: 990px) {
+        #ProductDetailUnconfirmed_sokketukakaku{
+            margin-left:auto;
+            margin-right:auto;
+            margin-top:4%;
+        }
+      }
+
+      @media screen and (max-width: 990px) {
+        .button{
+            margin-left:auto;
+            margin-right:auto;
+            margin-top:4%;
+        }
+      }
+
+      @media screen and (max-width: 990px) {
+        .bd-example{
+            margin-left:auto;
+            margin-right:auto;
+            width:70%;
+        }
+      }
+
   </style>
 </head>
 <body>
@@ -374,11 +420,11 @@
     <h1 id="ProductDetailUnconfirmed_syohin">商品名</h1>
   </div>
 <div class="row">
-  <div class="col-5">
+  <div class="col-lg-5">
   <div id="ProductDetailUnconfirmed_syohingazou">商品画像</div>
   </div>
 
-  <div class="col-7">
+  <div class="col-lg-7">
     <div style="display: flex;">
         <div id="ProductDetailUnconfirmed_genzaikakaku">現在価格：
     </div>
