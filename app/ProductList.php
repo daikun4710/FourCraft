@@ -22,6 +22,7 @@
             position:fixed;
             top:0;
             left:0;
+            z-index: 9999;
         }
     </style>
 </head>
@@ -34,13 +35,13 @@
             
                 <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
                 id="logo">
-                <img src="../images/Logo.png" width="40" alt="ロゴ" class="ms-lg-0 me-3 me-lg-0">
+                <img src="./images/Logo.png" width="40" alt="ロゴ" class="ms-lg-0 me-3 me-lg-0">
                 <use xlink:href="#bootstrap"></use>
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ml-0">
-                <li><a href="../ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
-                <li><a href="../Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>
+                <li><a href="./ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
+                <li><a href="./Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>
                 </ul>
             
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -48,9 +49,9 @@
             </form>
             
             <div class="text-end me-n5" id="headerBtn">
-            <button type="button" onclick="location.href='../Login.php'" 
+            <button type="button" onclick="location.href='./Login.php'" 
             class="btn btn-outline-light me-2">ログイン</button>
-            <button type="button" onclick="location.href='../Register.php'" 
+            <button type="button" onclick="location.href='./Register.php'" 
             class="btn btn-warning">新規登録</button>
             </div>
             
@@ -74,18 +75,21 @@
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <div class="col">
-          <div class="card shadow-sm">
-            <img src="../file/switch.jpg" class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><img src="../file/switch.jpg" width="100%"><title>Placeholder</title><rect width="100%" height="100%"> -->
-          </rect></svg>
+          <a href="ProductDetailUnconfirmed.php">
+            <div class="card shadow-sm">
+              <img src="../file/switch.jpg" class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><img src="../file/switch.jpg" width="100%"><title>Placeholder</title><rect width="100%" height="100%"> -->
+            </rect></svg>
 
-            <div class="card-body">
-              <p class="card-text">商品名</p>
-              <div class="d-flex justify-content-between align-items-center">
-              <small class="text-muted">現在:<font color="#ff0000">○○円</font></small>
+              <div class="card-body">
+                <p class="card-text">商品名</p>
+                <div class="d-flex justify-content-between align-items-center">
+                <small class="text-muted">現在:<font color="#ff0000">○○円</font></small>
+                </div>
               </div>
             </div>
-          </div>
+          </a>
+
         </div>
         <div class="col">
           <div class="card shadow-sm">

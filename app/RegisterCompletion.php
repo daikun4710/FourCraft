@@ -13,7 +13,7 @@
 </style>
 <body>
   <div style="text-align:center;">
-    <img src="logo.png"width="200"height="200">
+    <img src="Logo.png"width="200"height="200">
     <div class="kanryo">
       登録完了しました
     </div>
