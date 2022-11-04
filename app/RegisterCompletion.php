@@ -17,7 +17,8 @@
     <div class="kanryo">
       登録完了しました
     </div>
-    <a href="ProductList.php">商品一覧画面へ</a>
+    <a href="ProductList.php">
+      <h1>商品一覧画面へ</h1></a>
   </div>
 </body>
 </html>
