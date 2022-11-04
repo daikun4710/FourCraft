@@ -20,7 +20,7 @@
 
   <div class="text-center">   
     <main class="form-signin m-auto w-100">
-    <form action="RegisterCompletion.php"method="post">
+    <form action="ProductList.php"method="post">
       <img class="mb-4" src="images/register.png" alt="" width="150" height="150">
     
       <div class="container">
