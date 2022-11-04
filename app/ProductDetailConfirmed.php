@@ -340,6 +340,13 @@
           margin-top: 5%;
           margin-right: 20%;
         }
+
+        /* レスポンシブ対応 */
+        @media screen and (max-width: 990px) {
+        #ProductDetailConfirmed_syohinmei{
+            margin-top: 210px;
+        }
+      }
   </style>
 </head>
 <body>
@@ -379,11 +386,11 @@
     <h1 id="ProductDetailConfirmed_syohin">商品名</h1>
   </div>
 <div class="row">
-  <div class="col-5">
+  <div class="col-lg-5">
   <div id="ProductDetailConfirmed_syohingazou">商品画像</div>
   </div>
 
-  <div class="col-7">
+  <div class="col-lg-7">
         <h3 id="ProductDetailConfirmed_syuuryou">このオークションは終了しています。</h3>
         <div style="display:flex;">
         
