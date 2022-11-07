@@ -48,7 +48,7 @@
     </form> 
 
     <?php//ログイン処理
-    require_once 'database/DBManager.php';
+    require_once '../database/DBManager.php';
     $dbmng = new DBManager();
     session_start();
     if(isset($_SESSION["mail"]) == true  &&

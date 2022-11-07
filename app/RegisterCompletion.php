@@ -23,7 +23,7 @@
 </body>
 
 <?php//新規登録処理
-    require_once 'database/DBManager.php';
+    require_once '../database/DBManager.php';
     $dbmng = new DBManager();
     $dbmng->setUser($_POST['mail'],$_POST['pass']);
 
@@ -35,12 +35,12 @@
         }
     } catch (BadMethodCallException $bex) {
         $msg='メールアドレスが存在しません。';
-        echo '<script> console.log('. json_encode( $msg ) ')
+        echo '<script> console.log('.json_encode( $msg ) ')
         </script>';//コンソールに出力
         header("location:Login.php");
     }catch(LogicException $lex){
         $msg ='パスワードが一致しません';
-        echo '<script> console.log('. json_encode( $msg ) ')
+        echo '<script> console.log('.json_encode( $msg ) ')
         </script>';//コンソールに出力
         header("location:Login.php");
     }
