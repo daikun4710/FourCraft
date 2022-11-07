@@ -47,7 +47,8 @@
       </div>
     </form> 
 
-    <?php//ログイン処理
+    <!-- ログイン処理 -->
+    <?php
     require_once '../database/DBManager.php';
     $dbmng = new DBManager();
     session_start();
