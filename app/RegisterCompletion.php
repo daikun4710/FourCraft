@@ -13,11 +13,12 @@
 </style>
 <body>
   <div style="text-align:center;">
-    <img src="logo.png"width="200"height="200">
+    <img src="Logo.png"width="200"height="200">
     <div class="kanryo">
       登録完了しました
     </div>
-    <a href="ProductList.php">商品一覧画面へ</a>
+    <a href="ProductList.php">
+      <h1>商品一覧画面へ</h1></a>
   </div>
 </body>
 

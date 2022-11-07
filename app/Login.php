@@ -56,7 +56,7 @@
 	  //セッションがすでにあれば
      header("Locaion:ProductList.php.php");
     }
-    
+
     if(isset($_POST['loginBtn'])){
       try {
         $userArray = $dbmng->LoginUser($_POST['mail'],$_POST['pass']);
