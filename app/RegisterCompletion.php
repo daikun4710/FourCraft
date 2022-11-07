@@ -32,7 +32,6 @@
           $_SESSION['mail'] = $row['user_mail'];
 			    $_SESSION['id'] = $row['user_id'];
         }
-        header("location:ProductList.php");
     } catch (BadMethodCallException $bex) {
         $msg='メールアドレスが存在しません。';
         echo '<script> console.log('. json_encode( $msg ) ')
