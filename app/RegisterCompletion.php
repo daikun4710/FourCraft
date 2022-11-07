@@ -37,12 +37,12 @@
         }
     } catch (BadMethodCallException $bex) {
         $msg='メールアドレスが存在しません。';
-        echo '<script> console.log('.json_encode( $msg ) ')
+        echo '<script> console.log(' . json_encode($msg) . ');
         </script>';//コンソールに出力
         header("location:Login.php");
     }catch(LogicException $lex){
         $msg ='パスワードが一致しません';
-        echo '<script> console.log('.json_encode( $msg ) ')
+        echo '<script> console.log(' . json_encode($msg) . ');
         </script>';//コンソールに出力
         header("location:Login.php");
     }
