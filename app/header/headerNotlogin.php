@@ -13,7 +13,15 @@
                 margin-right: 3%;margin-left:-3%;
             }
             #headerBtn{
-                margin-right:-4%;
+                margin-right:-4%;margin-left:1.5px
+            }
+            body{
+              padding-top:4.8%;
+            }
+        }
+        @media screen and (max-width:991px){
+            body{
+              padding-top:55%;
             }
         }
         /* ヘッダー固定 */
@@ -22,10 +30,10 @@
             position:fixed;
             top:0;
             left:0;
+            z-index: 9999;
         }
     </style>
-</head>
-<body>    
+
     <header class="p-3 bg-dark text-white" id="header">
         <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -54,7 +62,10 @@
             
         </div>
         </div>
-    </header><!-- ↑ ヘッダー -->
+    </header><!-- ↑ ヘッダー style と一緒に head　に貼り付け ロゴの src　を変える-->
+</head>
+<body>    
+
 
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
