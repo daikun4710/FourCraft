@@ -99,8 +99,9 @@
 
         foreach($searchArray as $row){
           $img = base64_encode($row['image']);
-          // $ = base64_encode($row['']);
           echo "<img src="."data:image/jpg;"."base64,".$img.">"; 
+          echo $row['product_name']."<br>";
+          echo $row['current_price'];
         }
 
           echo '<div class ='.'"col"'.'>';
