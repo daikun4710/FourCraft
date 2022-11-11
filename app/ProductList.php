@@ -77,11 +77,11 @@
     <div class="container">
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        
         <div class="col">
           <a href="ProductDetailUnconfirmed.php">
             <div class="card shadow-sm">
               <img src="../file/switch.jpg" class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-              <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><img src="../file/switch.jpg" width="100%"><title>Placeholder</title><rect width="100%" height="100%"> -->
             </rect></svg>
 
               <div class="card-body">
@@ -92,106 +92,35 @@
               </div>
             </div>
           </a>
-
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
-
-            <div class="card-body">
-            <p class="card-text">商品名</p>
-              <div class="d-flex justify-content-between align-items-center">
-              <small class="text-muted"><font color="#ff0000">売り切れ</font></small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
-
-            <div class="card-body">
-            <p class="card-text">商品名</p>
-              <div class="d-flex justify-content-between align-items-center">
-              <small class="text-muted">現在:<font color="#ff0000">○○円</font></small>
-              </div>
-            </div>
-          </div>
         </div>
 
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
+        <?php
+        require_once '../database/DBManager.php';
+        $dbmng = new DBManeger();
+      
+        $searchArray = $dbmng->getProductList();
 
-            <div class="card-body">
-            <p class="card-text">商品名</p>
-              <div class="d-flex justify-content-between align-items-center">
-              <small class="text-muted">現在:<font color="#ff0000">○○円</font></small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
+        foreach($searchArray as $row){
+          $img = base64_encode($row['image']);
+          // $ = base64_encode($row['']);
+          echo "<img src="."data:image/jpg;"."base64,".$img.">"; 
+        }
 
-            <div class="card-body">
-            <p class="card-text">商品名</p>
-              <div class="d-flex justify-content-between align-items-center">
-              <small class="text-muted">現在:<font color="#ff0000">○○円</font></small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
+          echo '<div class ='.'"col"'.'>';
+          echo '<div class='.'"card shadow-sm"'.'>';
+          echo '<img src= '.'"data:image/jpg;"'.'"base64,"'.'"$img.">'; 
+          // echo '<div class='.'"card-body"'.'>';
 
-            <div class="card-body">
-            <p class="card-text">商品名</p>
-              <div class="d-flex justify-content-between align-items-center">
-              <small class="text-muted"><font color="#ff0000">売り切れ</font></small>
-              </div>
-            </div>
-          </div>
-        </div>
+        // foreach($searchArray as $row){
+      
+        //   $img = base64_encode($row['image']);
+        //   echo "<img src="."data:image/jpg;"."base64,".$img.">"; 
 
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
+        // }
+        ?>
 
-            <div class="card-body">
-            <p class="card-text">商品名</p>
-              <div class="d-flex justify-content-between align-items-center">
-              <small class="text-muted">現在:<font color="#ff0000">○○円</font></small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
 
-            <div class="card-body">
-            <p class="card-text">商品名</p>
-              <div class="d-flex justify-content-between align-items-center">
-              <small class="text-muted"><font color="#ff0000">売り切れ</font></small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
 
-            <div class="card-body">
-            <p class="card-text">商品名</p>
-              <div class="d-flex justify-content-between align-items-center">
-              <small class="text-muted"><font color="#ff0000">売り切れ</font></small>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
