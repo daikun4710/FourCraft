@@ -18,6 +18,29 @@
 
       #ProductDetailConfirmed_syohin{
           font-size: 25px;
+          padding-top: 11px;
+      }
+      
+      #ProductDetailConfirmed_syuryo1{
+          width: auto;
+          height: 60px;
+          background-color: red;
+          top:0;
+            bottom:0;
+            left:0;
+            right:0;
+            margin:auto;
+            position: absolute;
+      }
+
+      #ProductDetailConfirmed_syuryo2{
+          font-size: 50px;
+          color: white;
+          display: flex;
+            justify-content: center;
+            align-items:center;
+            text-align:center;
+            
       }
 
       #ProductDetailConfirmed_syohinsestumei{
@@ -39,6 +62,7 @@
         font-size: 20px;
         margin-left: 10px;
         margin-right: 10px;
+        position: relative;
     }
 
 
@@ -60,7 +84,7 @@
     border : solid 1px transparent ;
     margin-left: 35%;
     margin-right: 30%;
-    margin-top: 5%;
+    margin-top: 7%;
 }
 .button__text{
     position : relative ;
@@ -331,20 +355,58 @@
 
         .bd-example{
             width:70%;
-            margin-top:3.5%;
-            margin-left:9%;
+            margin-top:7%;
+            margin-left:15%;
         }
 
         #ProductDetailConfirmed_syuuryou{
-          margin-left: 22%;
-          margin-top: 5%;
-          margin-right: 20%;
+            display: flex;
+            justify-content: center;
+            align-items:center;
+            text-align:center;
+            margin-top:10%;
+            color: red;
         }
 
         /* レスポンシブ対応 */
         @media screen and (max-width: 990px) {
         #ProductDetailConfirmed_syohinmei{
             margin-top: 210px;
+        }
+      }
+
+      @media screen and (max-width: 990px) {
+        .button{
+            margin-left:auto;
+            margin-right:auto;
+            margin-top:4%;
+        }
+      }
+
+      @media screen and (max-width: 990px) {
+        #ProductDetailConfirmed_syuuryou{
+            display: flex;
+            justify-content: center;
+            align-items:center;
+            text-align:center;
+            margin-top:4%;
+        }
+      }
+
+      @media screen and (max-width: 990px) {
+        #ProductDetailConfirmed_syuryo2{
+            display: flex;
+            justify-content: center;
+            align-items:center;
+            text-align:center;
+        }
+      }
+
+      @media screen and (max-width: 990px) {
+        .bd-example{
+            margin-left:auto;
+            margin-right:auto;
+            width:70%;
         }
       }
   </style>
@@ -385,10 +447,14 @@
   <div id="ProductDetailConfirmed_syohinmei">
     <h1 id="ProductDetailConfirmed_syohin">商品名</h1>
   </div>
-<div class="row">
-  <div class="col-lg-5">
-  <div id="ProductDetailConfirmed_syohingazou">商品画像</div>
-  </div>
+        <div class="row">
+            <div class="col-lg-5">
+                <div id="ProductDetailConfirmed_syohingazou">
+                    <div id="ProductDetailConfirmed_syuryo1">
+                        <h1 id="ProductDetailConfirmed_syuryo2">SOLD OUT</h1>
+                    </div>
+                </div>
+            </div>
 
   <div class="col-lg-7">
         <h3 id="ProductDetailConfirmed_syuuryou">このオークションは終了しています。</h3>
