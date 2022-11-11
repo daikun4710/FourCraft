@@ -28,6 +28,9 @@
 </head>
 
 <body>
+  <?php
+  session_start();
+  ?>
 
 <header class="p-3 bg-dark text-white" id="header">
         <div class="container">

@@ -1,5 +1,5 @@
 <?php
-  class DBManeger {
+  class DBManager {
     private function dbConnect(){
       // DB接続情報
       $dsn = 'mysql:host=mysql209.phy.lolipop.lan;dbname=LAA1417814-fourcraft;charset=utf8mb4';
@@ -23,16 +23,19 @@
       return $selectdata;
     }
 
-    public function setUser($mail,$pass){//新規登録
+    //新規登録
+    public function setUser($mail,$pass){
       $pdo = $this->dbConnect();
       $sql ="INSERT INTO User (user_mail,user_password) VALUES (?,?)";
       $ps = $pdo->prepare($sql);
       $ps->bindValue(1, $mail, PDO::PARAM_STR);
       $ps->bindValue(2,password_hash($pass,PASSWORD_DEFAULT), PDO::PARAM_STR);
       $ps->execute();
+      echo "setUsertest";
   }
 
-    public function LoginUser($mail,$pass){//ログイン
+    //ログイン
+    public function LoginUser($mail,$pass){
       $pdo = $this->dbConnect();
       $sql ="SELECT * FROM User WHERE user_mail = ?";
       $ps = $pdo->prepare($sql);

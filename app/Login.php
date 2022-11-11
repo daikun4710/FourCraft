@@ -1,3 +1,36 @@
+<?php
+session_start();
+require_once '../database/DBManager.php';
+$dbmng = new DBManager();
+if(
+  isset($_SESSION["id"]) == true ){
+//セッションがすでにあれば
+  header('Locaion: ProductList.php');
+}
+
+if($_SERVER['REQUEST_METHOD']==='POST'){
+  try {
+    $userArray = $dbmng->LoginUser($_POST['mail'],$_POST['pass']);
+    foreach($userArray as  $row){//セッション作成
+      $_SESSION['id'] = $row['user_id'];
+    }
+    //遷移しない
+    header('Location: ProductList.php');
+    // exit();
+    echo 'Loginのテスト4';
+  } catch (BadMethodCallException $bex) {
+      $msg='メールアドレスが存在しません。';
+      echo '<script> console.log('.json_encode( $msg ).')</script>';
+      // header('Location: Login.php');
+  }catch(LogicException $lex){
+      $msg ='パスワードが一致しません';
+      echo '<script> console.log('.json_encode( $msg ).')</script>';
+      // header('Location: Login.php');
+  }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -45,40 +78,7 @@
           </div>
         </div>
       </div>
-    </form> 
-
-    <?php//ログイン処理
-    require_once '../database/DBManager.php';
-    $dbmng = new DBManager();
-    session_start();
-    if(isset($_SESSION["mail"]) == true  &&
-     isset($_SESSION["id"]) == true ){
-	  //セッションがすでにあれば
-     header("Locaion:ProductList.php.php");
-    }
-
-    if(isset($_POST['loginBtn'])){
-      try {
-        $userArray = $dbmng->LoginUser($_POST['mail'],$_POST['pass']);
-        foreach($userArray as  $row){//セッション作成
-          $_SESSION['mail'] = $row['user_mail'];
-			    $_SESSION['id'] = $row['user_id'];
-        }
-        header("location:ProductList.php");
-      } catch (BadMethodCallException $bex) {
-          $msg='メールアドレスが存在しません。';
-          echo '<script> console.log('. json_encode( $msg ) ')
-          </script>';//コンソールに出力
-          header("location:Login.php");
-      }catch(LogicException $lex){
-          $msg ='パスワードが一致しません';
-          echo '<script> console.log('. json_encode( $msg ) ')
-          </script>';//コンソールに出力
-          header("location:Login.php");
-      }
-    }
-    
-    ?>
+    </form>     
 
 </div>
 </main>
