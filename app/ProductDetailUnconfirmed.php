@@ -18,6 +18,7 @@
 
       #ProductDetailUnconfirmed_syohin{
           font-size: 25px;
+          padding-top: 11px;
       }
 
         #ProductDetailUnconfirmed_syohinsestumei{
