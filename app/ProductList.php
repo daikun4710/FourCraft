@@ -100,7 +100,7 @@
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         
-        <div class="col">
+        <!-- <div class="col">
           <a href="ProductDetailUnconfirmed.php">
             <div class="card shadow-sm">
               <img src="../file/switch.jpg" class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -114,7 +114,7 @@
               </div>
             </div>
           </a>
-        </div>
+        </div> -->
 
         <?php
         require_once '../database/DBManager.php';
@@ -124,21 +124,17 @@
 
         foreach($searchArray as $row){
           $img = base64_encode($row['image']);
-          // $ = base64_encode($row['']);
           echo "<img src="."data:image/jpg;"."base64,".$img.">"; 
         }
 
-          echo '<div class ='.'"col"'.'>';
-          echo '<div class='.'"card shadow-sm"'.'>';
+          echo '<div class="col">';
+          echo '<div class="card shadow-sm">';
           echo '<img src= '.'"data:image/jpg;"'.'"base64,"'.'"$img.">'; 
-          // echo '<div class='.'"card-body"'.'>';
-
-        // foreach($searchArray as $row){
-      
-        //   $img = base64_encode($row['image']);
-        //   echo "<img src="."data:image/jpg;"."base64,".$img.">"; 
-
-        // }
+          echo '<div class="card-body">';
+          $name = base64_encode($row['product_name']);
+          echo "<p class="."card-text"".$name">";
+          echo '<div class="d-flex" , "justify-content-between" , "align-items-center">';
+          echo '<small class="text-muted">'"現在:"'<font color=#ff0000>$row['current_price'],"円";,
         ?>
 
 
