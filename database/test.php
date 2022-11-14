@@ -12,7 +12,7 @@
   echo 'test<br>';
 
   require_once 'DBManager.php';
-  $dbmng = new DBManeger();
+  $dbmng = new DBManager();
 
   $searchArray = $dbmng->getProductList();
 

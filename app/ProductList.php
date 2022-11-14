@@ -1,3 +1,17 @@
+<?php 
+  session_start();
+  $loginFlag = false;
+  if(isset($_SESSION['id']) == true){
+    //セッションあり
+    $loginFlag =true;
+  }
+  if(isset($_POST['logoutBtn'])){
+    //ログアウト
+    session_destroy();
+    header("Location: ProductList.php");
+    exit();
+  }
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -41,7 +55,15 @@
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ml-0">
                 <li><a href="./ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
-                <li><a href="./Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>
+                <?php
+                  if($loginFlag == false){
+                    //セッションがあれば
+                    echo '<li><a href="./Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>';
+                  }else{
+                    echo '<li><a href="./Exhibit.php" class="nav-link px-2 text-white">商品を出品する</a></li>';
+                  }
+                ?>
+                
                 </ul>
             
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -49,10 +71,23 @@
             </form>
             
             <div class="text-end me-n5" id="headerBtn">
-            <button type="button" onclick="location.href='./Login.php'" 
-            class="btn btn-outline-light me-2">ログイン</button>
-            <button type="button" onclick="location.href='./Register.php'" 
-            class="btn btn-warning">新規登録</button>
+              
+            <?php
+              if($loginFlag == false){
+                //セッションがあれば
+                echo '<button type="button" onclick="location.href=' , "'./Login.php'" , '" 
+                class="btn btn-outline-light me-2">ログイン</button>',
+                '<button type="button" onclick="location.href=' ,"'./Register.php'" ,'" 
+                class="btn btn-warning">新規登録</button>';
+              }else{
+                //ログアウトボタン
+                echo '<form action="" method="post">';
+                echo '<button type="submit" onclick="location.href=' , "'./MyPage.php'" , '"
+                class="btn btn-outline-light me-2 me-lg-4" name="logoutBtn">　　ログアウト　　</button>';
+                echo '</form>';
+              }
+            ?>
+            
             </div>
             
         </div>
@@ -65,7 +100,9 @@
   <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">商品一覧</h1>
+        <?php
+        echo '<h1 class='.'"fw-light"'.'>商品一覧</h1>';
+        ?>
       </div>
     </div>
   </section>
@@ -93,7 +130,7 @@
 
         <?php
         require_once '../database/DBManager.php';
-        $dbmng = new DBManeger();
+        $dbmng = new DBManager();
       
         $searchArray = $dbmng->getProductList();
 

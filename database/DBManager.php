@@ -23,16 +23,19 @@
       return $selectdata;
     }
 
-    public function setUser($mail,$pass){//新規登録
+    //新規登録
+    public function setUser($mail,$pass){
       $pdo = $this->dbConnect();
       $sql ="INSERT INTO User (user_mail,user_password) VALUES (?,?)";
       $ps = $pdo->prepare($sql);
       $ps->bindValue(1, $mail, PDO::PARAM_STR);
       $ps->bindValue(2,password_hash($pass,PASSWORD_DEFAULT), PDO::PARAM_STR);
       $ps->execute();
+      echo "setUsertest";
   }
 
-    public function LoginUser($mail,$pass){//ログイン
+    //ログイン
+    public function LoginUser($mail,$pass){
       $pdo = $this->dbConnect();
       $sql ="SELECT * FROM User WHERE user_mail = ?";
       $ps = $pdo->prepare($sql);
@@ -50,6 +53,15 @@
           }
       }
     }
+
+    // public function productExhibit($product_id, $image, $product_name, $product_description, $){
+    //   $pdo = $this->dbConnect();
+    //   $sql ="INSERT INTO User (user_mail,user_password) VALUES (?,?)";
+    //   $ps = $pdo->prepare($sql);
+    //   $ps->bindValue(1, $mail, PDO::PARAM_STR);
+    //   $ps->bindValue(2,password_hash($pass,PASSWORD_DEFAULT), PDO::PARAM_STR);
+    //   $ps->execute();
+    // }
 
 
   }
