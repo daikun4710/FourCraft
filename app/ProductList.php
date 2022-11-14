@@ -105,10 +105,13 @@
           echo '<div class="card shadow-sm">';
           echo '<img src= '.'"data:image/jpg;"'.'"base64,"'.'"$img.">'; 
           echo '<div class="card-body">';
-          $name = $row['product_name'];
-          echo "<p class="."card-text"".$name".">";
+          // $name = $row['product_name'];
+          // echo "<p class="."card-text"".$name"."></p>";
           // echo '<div class="d-flex" , "justify-content-between" , "align-items-center">';
           // echo '<small class="text-muted">'"現在:"'<font color=#ff0000>$row['current_price'],"円";,
+          echo '</div>';
+          echo '</div>';
+          echo '</div>';
         }
 
         ?>
