@@ -1,5 +1,5 @@
 <?php
-  class DBManeger {
+  class DBManager {
     private function dbConnect(){
       // DB接続情報
       $dsn = 'mysql:host=mysql209.phy.lolipop.lan;dbname=LAA1417814-fourcraft;charset=utf8mb4';
@@ -43,7 +43,7 @@
           throw new BadMethodCallException("メールアドレスが存在しません");
       }
       foreach($selectdata as $row){
-          if(password_verify($pass,$row['user_password'])==true){
+          if(password_verify($pass,$row['user_password'])==true){+
               return $selectdata;
           }else{
               throw new LogicException("パスワードが一致しません");

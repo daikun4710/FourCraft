@@ -50,12 +50,12 @@
     <!-- ログイン処理 -->
     <?php
     require_once '../database/DBManager.php';
-    $dbmng = new DBManager();
+    $dbmng = new DBManeger();
     session_start();
     if(isset($_SESSION["mail"]) == true  &&
      isset($_SESSION["id"]) == true ){
 	  //セッションがすでにあれば
-     header("Locaion:ProductList.php.php");
+     header("Locaion:ProductList.php");
     }
 
     if(isset($_POST['loginBtn'])){
