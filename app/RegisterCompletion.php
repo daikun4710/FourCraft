@@ -10,7 +10,6 @@ try { //ログインしてセッション作成
     foreach($userArray as  $row){//セッション作成
       $_SESSION['id'] = $row['user_id'];
     }
-    echo "completionLoginUserのテスト";
 
 } catch (BadMethodCallException $bex) {
     $msg='メールアドレスが存在しません。';

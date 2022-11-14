@@ -3,7 +3,7 @@ session_start();
 require_once '../database/DBManager.php';
 $dbmng = new DBManager();
 if(
-  isset($_SESSION["id"]) == true ){
+  isset($_SESSION['id']) == true ){
 //セッションがすでにあれば
   header('Locaion: ProductList.php');
 }
@@ -14,10 +14,13 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     foreach($userArray as  $row){//セッション作成
       $_SESSION['id'] = $row['user_id'];
     }
-    //遷移しない
+    
+    //SESSION出力テスト
+    //echo '<script> console.log('.$_SESSION['id'].')</script>';
+    // header('Location: ProductList.php');
     header('Location: ProductList.php');
-    // exit();
-    echo 'Loginのテスト4';
+    exit();
+
   } catch (BadMethodCallException $bex) {
       $msg='メールアドレスが存在しません。';
       echo '<script> console.log('.json_encode( $msg ).')</script>';
@@ -28,7 +31,6 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
       // header('Location: Login.php');
   }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +39,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>登録画面</title>
+  <title>ログイン画面</title>
   <style>
   </style>
 
