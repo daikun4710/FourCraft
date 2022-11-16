@@ -98,21 +98,22 @@
         $searchArray = $dbmng->getProductList();
 
         foreach($searchArray as $row){
-          // $img = base64_encode($row['image']);
-          // echo "<img src="."data:image/jpg;"."base64,".$img.">"; 
           
+          // echo "<img src="."data:image/jpg;"."base64,".$img.">";
           echo '<div class="col">';
           echo '<div class="card shadow-sm">';
-          echo '<img src= '.'"data:image/jpg;"'.'"base64,"'.'"$img.">'; 
+          $img = base64_encode($row['image']);
+          // echo '<div class="bd-placeholder-img card-img-top" width="400" height="400">';
+          echo '<img src='.'"data:image/jpg;'.'base64,'.$img.'"'.'class="bd-placeholder-img card-img-top" width="100%" height="300 xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"'.'>';
+          // echo '</div>';
           echo '<div class="card-body">';
-          // $name = $row['product_name'];
-          // echo "<p class="."card-text"".$name"."></p>";
-          echo '<p class="card-text">'.$row['product_name'].'</p>'
-          // echo '<div class="d-flex" , "justify-content-between" , "align-items-center">';
-          // echo '<small class="text-muted">'"現在:"'<font color=#ff0000>$row['current_price'],"円";,
+          echo '<p class="card-text">'.$row['product_name'].'</p>';
+          echo '<div class="d-flex" , "justify-content-between" , "align-items-center">';
+          echo '<small class="text-muted">'."現在:".'<font color=#ff0000>'.$row['current_price'].'円';
           echo '</div>';
           echo '</div>';
           echo '</div>';
+
         }
 
         ?>
