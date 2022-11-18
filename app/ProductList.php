@@ -8,7 +8,7 @@
   if(isset($_POST['logoutBtn'])){
     //ログアウト
     session_destroy();
-    header("Location: ProductList.php");
+    header("Location: Login.php");
     exit();
   }
 ?>
@@ -154,11 +154,11 @@
           echo '</div>';
 
 
-          if(sold_out == true){
-            echo './ProductDetailUnconfirmed.php';
-          }else if(sold_out == false){
-            echo './ProductDetailConfirmed.php';
-          }
+          // if(sold_out == true){
+          //   echo './ProductDetailUnconfirmed.php';
+          // }else if(sold_out == false){
+          //   echo './ProductDetailConfirmed.php';
+          // }
 
         }
 
