@@ -1,3 +1,25 @@
+<?php
+session_start();
+require_once '../database/DBManager.php';
+$dbmng = new DBManager();
+
+$product_id = $_POST['product_id'];
+//現在価格を取得
+$productArray = $dbmng->getProductListByProduc_id($product_id);
+foreach ($productArray as $row) {
+  $current_price= $row['current_price'];
+}
+//入札処理
+if(isset($_POST['BidBtn'])){
+  $result=$dbmng->productBidDecide($_POST['amountBid'],false,$_SESSION['id'],$product_id);
+  if($result == true){
+    header("Location: BidCompletion.php");
+  }else{
+    echo "<script> alert('入札できませんでした');
+    location.href='ProductList.php';</script>";
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -106,24 +128,26 @@
   </div> -->
 
 <main>
+  <form method="post" action="" name="BidForm">
       <div style = "display:flex; align-items:center; ">
         <img src=./images/Logo.png width=100 class="mx-auto" vspace="50">
       </div>
       <div class="bg-ddd" style="width: auto; padding-top: 20px;">
           <div style="display:flex;">
             <label for="staticEmail" colFormLabelLg" class="" $_GET style="margin-left: 18%;"><p id="label">入札額</p></label>
-              <input type="bid" class="form-control form-control-lg w-50" id="inputBid">
+              <input type="bid" class="form-control form-control-lg w-50" id="inputBid" name="amountBid">
               <label for="staticEmail" colFormLabelLg" class="" $_GET style="margin-right: 18%;"><h2>円</h2></label>
             </div>
-          <p class="lead text-center" style="margin-top: 20px;">現在価格　　　　　　：円</p>
+          <p class="lead text-center" style="margin-top: 20px;">現在価格　<?php echo $current_price ?>：円</p>
       </div>
 
       <p>
       <div class="button_solid001" style="margin-top: 50px;">
-        <a href="#" style="text-decoration: none;">入札する</a>
+        <input type="hidden" name="BidBtn">
+        <a href="javascript:BidForm.submit()" style="text-decoration: none;">入札する</a>
       </div>
       </p>
-
+  </form>      
 </main>
 
 
