@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -415,9 +418,16 @@
         </div>
     </header>↑ ヘッダー
 
+    <?php
+        require_once '../database/DBManager.php';
+        $dbmng = new DBManager();
+        $searchArray = $dbmng->ProductDetail(1);
+    ?>
+
+<?php echo $searchArray['product_name'] ?>
   <div class="containaer-fluid">
   <div id="ProductDetailUnconfirmed_syohinmei">
-    <h1 id="ProductDetailUnconfirmed_syohin">商品名</h1>
+    <h1 id="ProductDetailUnconfirmed_syohin">商品名 </h1>
   </div>
 <div class="row">
   <div class="col-lg-5">

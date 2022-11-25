@@ -51,6 +51,16 @@
       }
     }
 
+    // public function ProductDetail($product_id){
+    //   $pdo = $this->dbConnect();
+    //   $sql = "SELECT * FROM Product WHERE product_id = ?";
+    //   $ps = $pdo->prepare($sql);
+    //   $ps->bindValue(1, $product_id, PDO::PARAM_INT);
+    //   $ps->execute();
+    //   $selectdata = $ps->fetchAll();
+    //   return $selectdata;
+    // }
+
 
   }
 ?>
