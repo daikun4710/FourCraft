@@ -99,7 +99,11 @@
 
         foreach($searchArray as $row){
 
-          // echo "<img src="."data:image/jpg;"."base64,".$img.">";
+          if($row['sold_out'] == true){
+            echo '<a href="./ProductDetailUnconfirmed.php">';
+          }else if($row['sold_out'] == false){
+            echo '<a href="./ProductDetailConfirmed.php">';
+          }
           echo '<div class="col">';
           echo '<div class="card shadow-sm">';
           $img = base64_encode($row['image']);
@@ -107,7 +111,8 @@
           echo '<img src='.'"data:image/jpg;'.'base64,'.$img.'"'.'class="bd-placeholder-img card-img-top" width="100%" height="300 xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"'.'>';
           // echo '</div>';
           echo '<div class="card-body">';
-          echo '<p class="card-text">'.'<b>'.'<font color=#000000>'.$row['product_name'].'</b>'.'</p>';
+          // echo '<p class="card-text">'.'<b>'.'<font color=#000000>'.$row['product_name'].'</b>'.'</p>';
+          echo '<button class="name">'.'<b>'.'<font color=#000000>'.$row['product_name'].'</b>'.'</button>';
           echo '</div>';
           echo '<div class="d-flex" , "justify-content-between" , "align-items-center">';
           // echo '<small class="text-muted">'."現在:".'<font color=#ff0000>'.$row['current_price'].'円';
@@ -115,13 +120,10 @@
           echo '</div>';
           echo '</div>';
           echo '</div>';
+          echo '</a>';
+          echo '</a>';
 
 
-          if(sold_out == true){
-            echo './ProductDetailUnconfirmed.php';
-          }else if(sold_out == false){
-            echo './ProductDetailConfirmed.php';
-          }
 
         }
 
