@@ -76,14 +76,14 @@
 
       <div class="col-md-3">
         <div class="mb-3">
-          <form action="" enctype="multipart/form-data" method="post">
+          <!-- <form action="" enctype="multipart/form-data" method="post"> -->
           <label for="formFile" class="form-label">画像を登録</label>
           <input class="form-control" type="file" id="formFile" name="productImg">
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="submit" 
             class="btn btn-info btn-opacity-50 mt-1">アップロード</button>
-          </div>
-          </form>
+          </div> -->
+          <!-- </form> -->
         </div>
         <img src="" alt="" class="img-fluid" width="300px">
       </div>
