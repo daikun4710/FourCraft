@@ -21,6 +21,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <title>商品一覧ページ</title>
   <style>
+    a{
+      text-decoration: none;
+    }
   /* 992px以上の時に適用 */
         @media screen and (min-width:992px){
             #logo{
@@ -142,9 +145,9 @@
           echo '<div class="col">';
           echo '<div class="card shadow-sm">';
           $img = base64_encode($row['image']);
-          // echo '<div class="bd-placeholder-img card-img-top" width="400" height="400">';
+          echo '<div class="bd-placeholder-img card-img-top" width="400" height="400">';
           if($row['sold_out'] == true){
-            echo '<a href="./ProductDetailConfirmed.php?product_id="'.$product_id.'>';
+          echo '<a href="./ProductDetailConfirmed.php?product_id='.$product_id.'">';
           }else if($row['sold_out'] == false){
             echo '<a href="./ProductDetailUnconfirmed.php?product_id='.$product_id.'">';
           }
@@ -159,14 +162,10 @@
           echo '</div>';
           echo '</div>';
           echo '</div>';
+          echo '</div>';
           echo '</a>';
 
 
-          // if(sold_out == true){
-          //   echo './ProductDetailUnconfirmed.php';
-          // }else if(sold_out == false){
-          //   echo './ProductDetailConfirmed.php';
-          // }
 
         }
 
