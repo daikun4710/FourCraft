@@ -54,15 +54,39 @@
       }
     }
 
-    // public function productExhibit($product_id, $image, $product_name, $product_description, $){
-    //   $pdo = $this->dbConnect();
-    //   $sql ="INSERT INTO User (user_mail,user_password) VALUES (?,?)";
-    //   $ps = $pdo->prepare($sql);
-    //   $ps->bindValue(1, $mail, PDO::PARAM_STR);
-    //   $ps->bindValue(2,password_hash($pass,PASSWORD_DEFAULT), PDO::PARAM_STR);
-    //   $ps->execute();
-    // }
+    public function productExhibit($image, $product_name, $product_description, $buyout_price, $current_price, $sold_out, $category, $condition, $end_date, $start_date, $exhibit_user_id){
+      $pdo = $this->dbConnect();
+      $sql ="INSERT INTO Product (image, product_name, product_description, buyout_price, current_price, sold_out, category, end_date, start_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
+      $ps = $pdo->prepare($sql);
+      //product_idはAutoincrement
+      //↓画像は入力先でいろいろ書かなきゃだめ
+      $ps->bindValue(1, $image,PDO::PARAM_STR);
+      $ps->bindValue(2, $product_name, PDO::PARAM_STR);
+      $ps->bindValue(3, $product_description, PDO::PARAM_STR);
+      $ps->bindValue(4, $buyout_price, PDO::PARAM_INT);
+      $ps->bindValue(5, $current_price, PDO::PARAM_INT);
+      $ps->bindValue(6, $sold_out, PDO::PARAM_BOOL);
+      $ps->bindValue(7, $category, PDO::PARAM_STR);
+      $ps->bindValue(8, $condition, PDO::PARAM_STR);
+      $ps->bindValue(9, $end_date, PDO::PARAM_STR);
+      $ps->bindValue(10, $start_date, PDO::PARAM_STR);
+      $ps->execute();
+    }
 
+    //SELECTでproduct_idもってきてINSERTすればいい？
+
+    public function userExhibit($exhibit_user_id){
+      $pdo = $this->dbConnect();
+      $selectSQL = "SELECT product_id FROM Product";
+      $product_id = $pdo->query($selectSQL);
+
+      $sql ="INSERT INTO Exhibit (product_id, exhibit_user_id) VALUES (?,?)";
+      $ps = $pdo->prepare($sql);
+      $ps->bindValue(1, $product_id, PDO::PARAM_STR);
+      //sessionIDで取得する↓
+      $ps->bindValue(2, $exhibit_user_id, PDO::PARAM_STR);
+      $ps->execute();
+    }
 
   }
 ?>
