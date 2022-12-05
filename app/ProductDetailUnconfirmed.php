@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -397,8 +400,8 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ml-0">
-                <li><a href="../ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
-                <li><a href="../Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>
+                <li><a href="http://localhost/FourCraft/app/ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
+                <li><a href="http://localhost/FourCraft/app/Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>
                 </ul>
             
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -406,9 +409,9 @@
             </form>
             
             <div class="text-end me-n5" id="headerBtn">
-            <button type="button" onclick="location.href='../Login.php'" 
+            <button type="button" onclick="location.href='../app/Login.php'" 
             class="btn btn-outline-light me-2">ログイン</button>
-            <button type="button" onclick="location.href='../Register.php'" 
+            <button type="button" onclick="location.href='../app/Register.php'" 
             class="btn btn-warning">新規登録</button>
             </div>
             
@@ -437,7 +440,7 @@
     </div>
         <div style="display:flex;">
         
-        <a href="" class="button">
+        <a href="Bid.php" class="button">
             <span class="button__text">入札</span>
             <div class="materials">
                 <div class="materials__bar"></div>
@@ -450,7 +453,7 @@
                 <div class="materials__circle"></div>
             </div>
         </a>
-        <a href="" class="button">
+        <a href="Decide.php" class="button">
             <span class="button__text">今すぐ落札</span>
             <div class="materials">
                 <div class="materials__bar"></div>
