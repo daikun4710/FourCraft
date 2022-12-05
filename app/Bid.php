@@ -9,14 +9,22 @@ $productArray = $dbmng->getProductListByProduc_id($product_id);
 foreach ($productArray as $row) {
   $current_price= $row['current_price'];
 }
-//入札処理
-if(isset($_POST['BidBtn'])){
-  $result=$dbmng->productBidDecide($_POST['amountBid'],false,$_SESSION['id'],$product_id);
-  if($result == true){
-    header("Location: BidCompletion.php");
+//入札処理 
+if(isset($_POST['BidBtn']==true)){
+  if($_POST['amountBid']>$current_price){
+    
+    $sold_out=false; //売り切れフラグ
+    $amount = $_POST['BidBtn'];  //入札金額
+   
+    $result=$dbmng->productBidDecide($amount,$sold_out,$_SESSION['id'],$product_id);
+    if($result == true){
+      header("Location: BidCompletion.php");
+    }else{
+      echo "<script> alert('入札できませんでした。');
+      location.href='ProductList.php';</script>";
+    }
   }else{
-    echo "<script> alert('入札できませんでした');
-    location.href='ProductList.php';</script>";
+    echo "<script> alert('現在価格よりも大きな金額を入力してください。');</script>";
   }
 }
 ?>
