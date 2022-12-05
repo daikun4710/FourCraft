@@ -1,12 +1,13 @@
 <?php
 session_start();
+if(isset($_SESSION['id']) == true ){
+//セッションがすでにあれば
+  header("Location: ProductList.php");
+  exit();
+}
 require_once '../database/DBManager.php';
 $dbmng = new DBManager();
-if(
-  isset($_SESSION['id']) == true ){
-//セッションがすでにあれば
-  header('Locaion: ProductList.php');
-}
+
 
 if($_SERVER['REQUEST_METHOD']==='POST'){
   try {
@@ -80,6 +81,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
           </div>
         </div>
       </div>
+
     </form>     
 
 </div>

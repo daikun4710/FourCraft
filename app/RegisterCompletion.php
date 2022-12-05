@@ -3,7 +3,6 @@ session_start();
 require_once '../database/DBManager.php';
 $dbmng = new DBManager();
 $dbmng->setUser($_POST['mail'],$_POST['pass']);   
-echo "completionsetUserのテスト";
 
 try { //ログインしてセッション作成
     $userArray = $dbmng->LoginUser($_POST['mail'],$_POST['pass']);
