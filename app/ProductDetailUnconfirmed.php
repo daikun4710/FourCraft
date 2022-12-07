@@ -1,3 +1,21 @@
+<?php
+session_start();
+require_once '../database/DBManager.php';
+$dbmng = new DBManager();
+$product_id = $_GET['product_id'];
+$productArray = $dbmng->getProductListByProduc_id($product_id);
+
+foreach ($productArray as $row) {
+    $image = $row['image'];//画像
+    $product_name = $row['product_name'];//商品名
+    $product_description = $row['product_description']; //商品説明
+    $buyout_price = $row['buyout_price']; //即決価格
+    $current_price = $row['current_price']; //現在価格
+    $sold_out= $row['sold_out']; //売り切れフラグ 0 or 1
+    $category= $row['category']; //カテゴリ
+    $condition= $row['condition']; //商品の状態
+}
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -397,8 +415,8 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ml-0">
-                <li><a href="http://localhost/FourCraft/app/ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
-                <li><a href="http://localhost/FourCraft/app/Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>
+                <li><a href="./ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
+                <li><a href="./Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>
                 </ul>
             
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">

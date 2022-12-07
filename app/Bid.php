@@ -1,3 +1,35 @@
+<?php
+session_start();
+require_once '../database/DBManager.php';
+$dbmng = new DBManager();
+
+$product_id = 1;
+//$product_id = $_GET['product_id'];
+//現在価格を取得
+$productArray = $dbmng->getProductListByProduc_id($product_id);
+foreach ($productArray as $row) {
+  $current_price= $row['current_price'];
+}
+//入札処理 
+if(isset($_POST['BidBtn'])){
+  if($_POST['amountBid']>$current_price){
+    
+    $sold_out=0; //売り切れフラグ
+    $amount = $_POST['amountBid'];  //入札金額
+   
+    $result=$dbmng->productBidDecide($amount,$sold_out,$_SESSION['id'],$product_id);
+    if($result == true){
+      $_SESSION['amount'] =$amount;//入札金額をセッションで次ページへ
+      header("Location: BidCompletion.php");
+    }else{
+      echo "<script> alert('入札できませんでした。');
+      location.href='ProductList.php';</script>";
+    }
+  }else{
+    echo "<script> alert('現在価格よりも大きな金額を入力してください。');</script>";
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -101,24 +133,29 @@
   <!-- </header> -->
     
 <main>
+  <form method="post" action="" name="BidForm">
       <div style = "display:flex; align-items:center; ">
         <img src=./images/Logo.png width=100 class="mx-auto" vspace="50">
       </div>
       <div class="bg-ddd" style="width: auto; padding-top: 20px;">
           <div style="display:flex;">
+
             <label for="staticEmail" colFormLabelLg" class="" $_GET style="margin-left: 18%;"><h2 class="label">入札額</h2></label>
-              <input type="bid" class="form-control form-control-lg w-50" id="inputBid">
+              <input type="bid" class="form-control form-control-lg w-50" id="inputBid" name="amountBid">
               <label for="staticEmail" colFormLabelLg" class="" $_GET style="margin-right: 18%;"><h2 style="margin-top: 25%;">円</h2></label>
             </div>
-          <p class="lead text-center" style="margin-top: 20px;">現在価格　　　　　　：円</p>
+          <p class="lead text-center" style="margin-top: 20px;">現在価格　<?php echo $current_price; ?>：円</p>
       </div>
 
       <p>
       <div class="button_solid001" style="margin-top: 50px;">
-        <a href="BidCompletion.php" style="text-decoration: none;">入札する</a>
+
+        <input type="hidden" name="BidBtn">
+        <a href="javascript:BidForm.submit()" style="text-decoration: none;">入札する</a>
+
       </div>
       </p>
-
+  </form>      
 </main>
 
 

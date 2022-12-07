@@ -1,4 +1,18 @@
-!DOCTYPE html>
+<?php 
+  session_start();
+  $loginFlag = false;
+  if(isset($_SESSION['id']) == true){
+    //セッションあり
+    $loginFlag =true;
+  }
+  if(isset($_POST['logoutBtn'])){
+    //ログアウト
+    session_destroy();
+    header("Location: Login.php");
+    exit();
+  }
+?>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -41,7 +55,15 @@
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ml-0">
                 <li><a href="./ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
-                <li><a href="./Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>
+                <?php
+                  if($loginFlag == false){
+                    //セッションがあれば
+                    echo '<li><a href="./Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>';
+                  }else{
+                    echo '<li><a href="./Exhibit.php" class="nav-link px-2 text-white">商品を出品する</a></li>';
+                  }
+                ?>
+                
                 </ul>
             
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -49,10 +71,23 @@
             </form>
             
             <div class="text-end me-n5" id="headerBtn">
-            <button type="button" onclick="location.href='./Login.php'" 
-            class="btn btn-outline-light me-2">ログイン</button>
-            <button type="button" onclick="location.href='./Register.php'" 
-            class="btn btn-warning">新規登録</button>
+              
+            <?php
+              if($loginFlag == false){
+                //セッションがあれば
+                echo '<button type="button" onclick="location.href=' , "'./Login.php'" , '" 
+                class="btn btn-outline-light me-2">ログイン</button>',
+                '<button type="button" onclick="location.href=' ,"'./Register.php'" ,'" 
+                class="btn btn-warning">新規登録</button>';
+              }else{
+                //ログアウトボタン
+                echo '<form action="" method="post">';
+                echo '<button type="submit" onclick="location.href=' , "'./MyPage.php'" , '"
+                class="btn btn-outline-light me-2 me-lg-4" name="logoutBtn">　　ログアウト　　</button>';
+                echo '</form>';
+              }
+            ?>
+            
             </div>
             
         </div>
@@ -65,7 +100,9 @@
   <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">商品一覧</h1>
+        <?php
+        echo '<h1 class='.'"fw-light"'.'>商品一覧</h1>';
+        ?>
       </div>
     </div>
   </section>
@@ -74,11 +111,11 @@
     <div class="container">
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col">
+        
+        <!-- <div class="col">
           <a href="ProductDetailUnconfirmed.php">
             <div class="card shadow-sm">
               <img src="../file/switch.jpg" class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-              <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><img src="../file/switch.jpg" width="100%"><title>Placeholder</title><rect width="100%" height="100%"> -->
             </rect></svg>
 
               <div class="card-body">
@@ -89,134 +126,47 @@
               </div>
             </div>
           </a>
+        </div> -->
 
-        </div>
-        <div class="col">
-        <a href="ProductDetailConfirmed.php">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
 
-            <div class="card-body">
-            <p class="card-text">商品名</p>
-              <div class="d-flex justify-content-between align-items-center">
-              <small class="text-muted"><font color="#ff0000">売り切れ</font></small>
-              </div>
-            </div>
-          </div>
-          </a>
-        </div>
-        
-        <div class="col">
-        <a href="ProductDetailUnconfirmed.php">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
+        <?php
+        require_once '../database/DBManager.php';
+        $dbmng = new DBManager();
+      
+        $searchArray = $dbmng->getProductList();
 
-            <div class="card-body">
-            <p class="card-text">商品名</p>
-              <div class="d-flex justify-content-between align-items-center">
-              <small class="text-muted">現在:<font color="#ff0000">○○円</font></small>
-              </div>
-            </div>
-          </div>
-          </a>
-        </div>
-        
+        foreach($searchArray as $row){
 
-        <div class="col">
-        <a href="ProductDetailUnconfirmed.php">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
+          // echo "<img src="."data:image/jpg;"."base64,".$img.">";
+          echo '<div class="col">';
+          echo '<div class="card shadow-sm">';
+          $img = base64_encode($row['image']);
+          // echo '<div class="bd-placeholder-img card-img-top" width="400" height="400">';
+          echo '<img src='.'"data:image/jpg;'.'base64,'.$img.'"'.'class="bd-placeholder-img card-img-top" width="100%" height="300 xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"'.'>';
+          // echo '</div>';
+          echo '<div class="card-body">';
+          echo '<p class="card-text">'.'<b>'.'<font color=#000000>'.$row['product_name'].'</b>'.'</p>';
+          echo '</div>';
+          echo '<div class="d-flex" , "justify-content-between" , "align-items-center">';
+          // echo '<small class="text-muted">'."現在:".'<font color=#ff0000>'.$row['current_price'].'円';
+          echo '<small class="text-price">'.'<font-size=10px>'.'現在:'.'<font color=#ff0000>'.$row['current_price'].'円'.'</small>';
+          echo '</div>';
+          echo '</div>';
+          echo '</div>';
 
-            <div class="card-body">
-            <p class="card-text">商品名</p>
-              <div class="d-flex justify-content-between align-items-center">
-              <small class="text-muted">現在:<font color="#ff0000">○○円</font></small>
-              </div>
-            </div>
-          </div>
-          </a>
-        </div>
-        
 
-        <div class="col">
-        <a href="ProductDetailUnconfirmed.php">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
+          // if(sold_out == true){
+          //   echo './ProductDetailUnconfirmed.php';
+          // }else if(sold_out == false){
+          //   echo './ProductDetailConfirmed.php';
+          // }
 
-            <div class="card-body">
-            <p class="card-text">商品名</p>
-              <div class="d-flex justify-content-between align-items-center">
-              <small class="text-muted">現在:<font color="#ff0000">○○円</font></small>
-              </div>
-            </div>
-          </div>
-          </a>
-        </div>
-        
+        }
 
-        <div class="col">
-        <a href="ProductDetailConfirmed.php">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
+        ?>
 
-            <div class="card-body">
-            <p class="card-text">商品名</p>
-              <div class="d-flex justify-content-between align-items-center">
-              <small class="text-muted"><font color="#ff0000">売り切れ</font></small>
-              </div>
-            </div>
-          </div>
-          </a>
-        </div>
-        
 
-        <div class="col">
-        <a href="ProductDetailUnconfirmed.php">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
 
-            <div class="card-body">
-            <p class="card-text">商品名</p>
-              <div class="d-flex justify-content-between align-items-center">
-              <small class="text-muted">現在:<font color="#ff0000">○○円</font></small>
-              </div>
-            </div>
-          </div>
-          </a>
-        </div>
-        
-
-        <div class="col">
-        <a href="ProductDetailConfirmed.php">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
-
-            <div class="card-body">
-            <p class="card-text">商品名</p>
-              <div class="d-flex justify-content-between align-items-center">
-              <small class="text-muted"><font color="#ff0000">売り切れ</font></small>
-              </div>
-            </div>
-          </div>
-          </a>
-        </div>
-        
-
-        <div class="col">
-          <a href="ProductDetailConfirmed.php">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
-
-            <div class="card-body">
-            <p class="card-text">商品名</p>
-              <div class="d-flex justify-content-between align-items-center">
-              <small class="text-muted"><font color="#ff0000">売り切れ</font></small>
-              </div>
-            </div>
-          </div>
-          </a>
-        </div>
-        
 
       </div>
     </div>
