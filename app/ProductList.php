@@ -92,6 +92,7 @@
 
         </div>
         <div class="col">
+        <a href="ProductDetailConfirmed.php">
           <div class="card shadow-sm">
             <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
 
@@ -102,8 +103,11 @@
               </div>
             </div>
           </div>
+          </a>
         </div>
+        
         <div class="col">
+        <a href="ProductDetailUnconfirmed.php">
           <div class="card shadow-sm">
             <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
 
@@ -114,9 +118,12 @@
               </div>
             </div>
           </div>
+          </a>
         </div>
+        
 
         <div class="col">
+        <a href="ProductDetailUnconfirmed.php">
           <div class="card shadow-sm">
             <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
 
@@ -127,8 +134,12 @@
               </div>
             </div>
           </div>
+          </a>
         </div>
+        
+
         <div class="col">
+        <a href="ProductDetailUnconfirmed.php">
           <div class="card shadow-sm">
             <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
 
@@ -139,8 +150,12 @@
               </div>
             </div>
           </div>
+          </a>
         </div>
+        
+
         <div class="col">
+        <a href="ProductDetailConfirmed.php">
           <div class="card shadow-sm">
             <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
 
@@ -151,9 +166,12 @@
               </div>
             </div>
           </div>
+          </a>
         </div>
+        
 
         <div class="col">
+        <a href="ProductDetailUnconfirmed.php">
           <div class="card shadow-sm">
             <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
 
@@ -164,8 +182,12 @@
               </div>
             </div>
           </div>
+          </a>
         </div>
+        
+
         <div class="col">
+        <a href="ProductDetailConfirmed.php">
           <div class="card shadow-sm">
             <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
 
@@ -176,8 +198,12 @@
               </div>
             </div>
           </div>
+          </a>
         </div>
+        
+
         <div class="col">
+          <a href="ProductDetailConfirmed.php">
           <div class="card shadow-sm">
             <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#D9D9D9"></rect></svg>
 
@@ -188,7 +214,10 @@
               </div>
             </div>
           </div>
+          </a>
         </div>
+        
+
       </div>
     </div>
   </div>

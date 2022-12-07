@@ -20,7 +20,7 @@
     <a href="ProductList.php">
       <h1>商品一覧画面へ</h1></a>
   </div>
-</body>
+
 
 <?php//新規登録処理
     require_once '../database/DBManager.php';
@@ -45,4 +45,5 @@
         header("location:Login.php");
     }
 ?>
+</body>
 </html>
