@@ -32,6 +32,17 @@
       $selectdata = $ps->fetchAll();
       return $selectdata;
     }
+    //キーワードで商品検索
+    public function getProductListByKey($key){
+      $pdo = $this->dbConnect();
+      $sql = "SELECT * FROM Product WHERE product_name LIKE ? OR product_description LIKE ?";
+      $ps= $pdo->prepare($sql);
+      $ps -> bindValue(1,"%$key%",PDO::PARAM_STR);
+      $ps -> bindValue(2,"%$key%",PDO::PARAM_STR);
+      $ps -> execute();
+      $selectdata = $ps->fetchAll();
+      return $selectdata;
+    }
 
     //新規登録
     public function setUser($mail,$pass){
