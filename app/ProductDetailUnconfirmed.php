@@ -4,6 +4,17 @@ require_once '../database/DBManager.php';
 $dbmng = new DBManager();
 $product_id = $_GET['product_id'];
 $productArray = $dbmng->getProductListByProduc_id($product_id);
+$loginFlag = false;
+if(isset($_SESSION['id']) == true){
+  //セッションあり
+  $loginFlag =true;
+}
+if(isset($_POST['logoutBtn'])){
+    //ログアウト
+    session_destroy();
+    header("Location: Login.php");
+    exit();
+  }
 
 foreach ($productArray as $row) {
     $image = $row['image'];//画像
@@ -381,7 +392,7 @@ foreach ($productArray as $row) {
         #ProductDetailUnconfirmed_genzaikakaku{
             margin-left:auto;
             margin-right:auto;
-            margin-top: 5%;
+            margin-top: 150px;
         }
       }
 
@@ -417,7 +428,7 @@ foreach ($productArray as $row) {
         <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+                <a href="./ProductList.php" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
                 id="logo">
                 <img src="./images/Logo.png" width="40" alt="ロゴ" class="ms-lg-0 me-3 me-lg-0">
                 <use xlink:href="#bootstrap"></use>
@@ -425,7 +436,15 @@ foreach ($productArray as $row) {
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ml-0">
                 <li><a href="./ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
-                <li><a href="./Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>
+                <?php
+                  if($loginFlag == false){
+                    //セッションがあれば
+                    echo '<li><a href="./Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>';
+                  }else{
+                    echo '<li><a href="./Exhibit.php" class="nav-link px-2 text-white">商品を出品する</a></li>';
+                  }
+                ?>
+                
                 </ul>
             
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -433,15 +452,28 @@ foreach ($productArray as $row) {
             </form>
             
             <div class="text-end me-n5" id="headerBtn">
-            <button type="button" onclick="location.href='../app/Login.php'" 
-            class="btn btn-outline-light me-2">ログイン</button>
-            <button type="button" onclick="location.href='../app/Register.php'" 
-            class="btn btn-warning">新規登録</button>
+              
+            <?php
+              if($loginFlag == false){
+                //セッションがあれば
+                echo '<button type="button" onclick="location.href=' , "'./Login.php'" , '" 
+                class="btn btn-outline-light me-2">ログイン</button>',
+                '<button type="button" onclick="location.href=' ,"'./Register.php'" ,'" 
+                class="btn btn-warning">新規登録</button>';
+              }else{
+                //ログアウトボタン
+                echo '<form action="" method="post">';
+                echo '<button type="submit" onclick="location.href=' , "'./MyPage.php'" , '"
+                class="btn btn-outline-light me-2 me-lg-4" name="logoutBtn">　　ログアウト　　</button>';
+                echo '</form>';
+              }
+            ?>
+            
             </div>
             
         </div>
         </div>
-    </header>↑ ヘッダー
+    </header><!-- ↑ ヘッダー -->
 
   <div class="containaer-fluid">
   <div id="ProductDetailUnconfirmed_syohinmei">
