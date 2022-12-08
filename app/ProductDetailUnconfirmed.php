@@ -26,6 +26,16 @@ foreach ($productArray as $row) {
   <title>商品詳細購入未確定ページ</title>
   <style>
 
+.gazou{
+        height: 350px;
+        width: auto;
+        /* background-color: #D9D9D9; */
+        margin-top: 10px;
+        font-size: 20px;
+        
+        position: relative;
+    }
+
       #ProductDetailUnconfirmed_syohinmei{
           width: auto;
           height: 55px;
@@ -53,7 +63,6 @@ foreach ($productArray as $row) {
     #ProductDetailUnconfirmed_syohingazou{
         height: 100%;
         width: auto;
-        background-color: #D9D9D9;
         margin-top: 10px;
         font-size: 20px;
         margin-left: 10px;
@@ -436,22 +445,29 @@ foreach ($productArray as $row) {
 
   <div class="containaer-fluid">
   <div id="ProductDetailUnconfirmed_syohinmei">
-    <h1 id="ProductDetailUnconfirmed_syohin">商品名</h1>
+    <h1 id="ProductDetailUnconfirmed_syohin">　<?php echo $product_name; ?></h1>
   </div>
 <div class="row">
   <div class="col-lg-5">
-  <div id="ProductDetailUnconfirmed_syohingazou">商品画像</div>
+  <div id="ProductDetailUnconfirmed_syohingazou">
+  <div class="gazou">
+                    <?php
+                        $img = base64_encode($image);
+                        echo '<img src='.'"data:image/jpg;'.'base64,'.$img.'"'.'class="bd-placeholder-img card-img-top" width="100%" height="100% xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"'.'>';
+                        ?>
+                        </div>
+  </div>
   </div>
 
   <div class="col-lg-7">
     <div style="display: flex;">
         <div id="ProductDetailUnconfirmed_genzaikakaku">現在価格：
     </div>
-        <u id="ProductDetailUnconfirmed_genzaikakaku">20000 円</u>
+        <u id="ProductDetailUnconfirmed_genzaikakaku"><?php echo $current_price; ?>円</u>
     </div>
     <div style="display: flex;">
         <div id="ProductDetailUnconfirmed_sokketukakaku">即決価格：</div>
-        <u id="ProductDetailUnconfirmed_sokketukakaku">1億 円</u>
+        <u id="ProductDetailUnconfirmed_sokketukakaku"><?php echo $buyout_price; ?>円</u>
     </div>
         <div style="display:flex;">
         
@@ -493,13 +509,13 @@ foreach ($productArray as $row) {
       <thead>
     <tr>
       <th width="30%">カテゴリ</th>
-      <th width="70%">First</th>
+      <th width="70%"><?php echo $category; ?></th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>状態</th>
-      <td>Mark</td>
+      <td><?php echo $condition; ?></td>
     </tr>
   </tbody>
 
@@ -507,7 +523,7 @@ foreach ($productArray as $row) {
 </div>
 
   </div>
-    <div id="ProductDetailUnconfirmed_syohinsestumei">商品説明</div>
+    <div id="ProductDetailUnconfirmed_syohinsestumei"><?php echo $product_description; ?></div>
     </div>
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
