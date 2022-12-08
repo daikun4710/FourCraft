@@ -1,5 +1,16 @@
 <?php
 session_start();
+require_once '../database/DBManager.php';
+$dbmng = new DBManager();
+
+$product_id = $_POST['product_id'];
+//$product_id = $_GET['product_id'];
+//即決価格を取得
+$productArray = $dbmng->getProductListByProduc_id($product_id);
+foreach ($productArray as $row) {
+    $image = $row['image'];//画像
+    $product_name = $row['product_name'];//商品名
+}
 $loginFlag = false;
   if(isset($_SESSION['id']) == true){
     //セッションあり
@@ -61,14 +72,14 @@ $loginFlag = false;
         #shohinmei{
             /* margin-top: 200px; */
             font-size: 200%;
-            text-align: center;
+            font-weight: bold;
            
         }
         #back{
             width:  400px; 
             height: 400px; 
             background-color: blue; 
-            margin-top: 30px;                               
+            margin-top: 50px;                               
             margin-left: 8%;  
         }
         #exhibit_img{
@@ -102,7 +113,7 @@ $loginFlag = false;
         #block{
             width:50%;
             margin-left:50%;
-            margin-top: -370px;
+            margin-top: -418px;
         }
 
         html {
@@ -139,7 +150,8 @@ $loginFlag = false;
         #shohinmei{
             /* margin-top: 20px; */
             font-size: 200%;
-            text-align: left;
+            /* text-align: left; */
+            font-weight: bold;
             
         }
         #back{
@@ -255,15 +267,24 @@ $loginFlag = false;
                   出品完了
                 </div>
                 <div class="order">
-                    <div id="shohinmei">
-                        (商品名) 
-                    </div>
+                    <!-- <div id="shohinmei"> -->
+                        
+                    <!-- </div> -->
                     <div id="back">
+                    <?php
+                        $img = base64_encode($image);
+                        echo '<img src='.'"data:image/jpg;'.'base64,'.$img.'"'.'class="bd-placeholder-img card-img-top" width="100%" height="100% xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"'.'>';
+                        ?>
                     </div>
                 </div>
                 <div id="block">
                     <div class="center">
                         <div class="yoko">
+                        <div id="shohinmei">
+                            <?php
+                            echo "(商品名)　".$product_name ;
+                            ?>
+                        </div>
                             <div id="imgposi">
                                 <img src="images/hannma-.png" alt="ハンマの写真" id="exhibit_img"/>
                             </div>
