@@ -1,10 +1,15 @@
 <?php
 session_start();
+if(isset($_SESSION['id']) == false ){
+  //セッションがすでにあれば
+    header("Location: Login.php");
+    exit();
+  }
 require_once '../database/DBManager.php';
 $dbmng = new DBManager();
 
-$product_id = 1;
-//$product_id = $_GET['product_id'];
+// $product_id = 1;
+$product_id = $_GET['product_id'];
 //即決価格を取得
 $productArray = $dbmng->getProductListByProduc_id($product_id);
 foreach ($productArray as $row) {
@@ -120,7 +125,7 @@ if(isset($_POST['buyBtn'])){
 
     <div>
       <h2 id="title">今すぐ落札</h2>
-      <a href="ProductDetailUnconfirmed.php" class="menu-item" style="text-decoration: none;">×</a>
+      <a href="ProductDetailUnconfirmed.php?product_id=<?php echo $product_id; ?>" class="menu-item" style="text-decoration: none;">×</a>
     </div>
 
 <main>
@@ -137,21 +142,10 @@ if(isset($_POST['buyBtn'])){
       <p>
 
       <form method="post" action="" name="BuyForm">
-      <div class="button_solid001" style="margin-top: 50px;">
-        <a href="#" style="text-decoration: none;">落札する</a>
-      </div>
-      </p>
-
-      <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-
-</main>
-  
-</body>
-        <a href="DicideCompletion.php" style="text-decoration: none;">落札する</a>
+        <div class="button_solid001" style="margin-top: 50px;">
         <input type="hidden" name="buyBtn">
         <a href="javascript:BuyForm.submit()" style="text-decoration: none;">落札する</a>
-      </div>
+
       </form>
       </p>
 
