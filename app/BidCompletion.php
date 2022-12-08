@@ -1,3 +1,8 @@
+<?php
+session_start();
+$amount = $_SESSION['amount'];
+unset($_SESSION['amount']);
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -104,7 +109,7 @@
   </div>
 
   <p>
-    合計　<span id="kin"></span>円
+    合計　<span id="kin"><?php echo $amount;?></span>円
   </p>
 
   <!-- <a href="ProductList.php">

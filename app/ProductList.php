@@ -2,7 +2,14 @@
   session_start();
   $loginFlag = false;
   if(isset($_SESSION['id']) == true){
+    //セッションあり
     $loginFlag =true;
+  }
+  if(isset($_POST['logoutBtn'])){
+    //ログアウト
+    session_destroy();
+    header("Location: Login.php");
+    exit();
   }
 ?>
 <!DOCTYPE html>
@@ -50,6 +57,7 @@
                 <li><a href="./ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
                 <?php
                   if($loginFlag == false){
+                    //セッションがあれば
                     echo '<li><a href="./Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>';
                   }else{
                     echo '<li><a href="./Exhibit.php" class="nav-link px-2 text-white">商品を出品する</a></li>';
@@ -66,13 +74,17 @@
               
             <?php
               if($loginFlag == false){
-                echo '<button type="button" onclick="location.href=' , "'./Login.php'" , ' 
+                //セッションがあれば
+                echo '<button type="button" onclick="location.href=' , "'./Login.php'" , '" 
                 class="btn btn-outline-light me-2">ログイン</button>',
                 '<button type="button" onclick="location.href=' ,"'./Register.php'" ,'" 
                 class="btn btn-warning">新規登録</button>';
               }else{
-                echo '<button type="button" onclick="location.href=' , "'./MyPage.php'" , '"
-                class="btn btn-outline-light me-2 me-lg-4">　　ログアウト　　</button>';
+                //ログアウトボタン
+                echo '<form action="" method="post">';
+                echo '<button type="submit" onclick="location.href=' , "'./MyPage.php'" , '"
+                class="btn btn-outline-light me-2 me-lg-4" name="logoutBtn">　　ログアウト　　</button>';
+                echo '</form>';
               }
             ?>
             
@@ -123,20 +135,31 @@
         $searchArray = $dbmng->getProductList();
 
         foreach($searchArray as $row){
-          // $img = base64_encode($row['image']);
-          // echo "<img src="."data:image/jpg;"."base64,".$img.">"; 
-          
+
+          // echo "<img src="."data:image/jpg;"."base64,".$img.">";
           echo '<div class="col">';
           echo '<div class="card shadow-sm">';
-          echo '<img src= '.'"data:image/jpg;"'.'"base64,"'.'"$img.">'; 
+          $img = base64_encode($row['image']);
+          // echo '<div class="bd-placeholder-img card-img-top" width="400" height="400">';
+          echo '<img src='.'"data:image/jpg;'.'base64,'.$img.'"'.'class="bd-placeholder-img card-img-top" width="100%" height="300 xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"'.'>';
+          // echo '</div>';
           echo '<div class="card-body">';
-          // $name = $row['product_name'];
-          // echo "<p class="."card-text"".$name"."></p>";
-          // echo '<div class="d-flex" , "justify-content-between" , "align-items-center">';
-          // echo '<small class="text-muted">'"現在:"'<font color=#ff0000>$row['current_price'],"円";,
+          echo '<p class="card-text">'.'<b>'.'<font color=#000000>'.$row['product_name'].'</b>'.'</p>';
+          echo '</div>';
+          echo '<div class="d-flex" , "justify-content-between" , "align-items-center">';
+          // echo '<small class="text-muted">'."現在:".'<font color=#ff0000>'.$row['current_price'].'円';
+          echo '<small class="text-price">'.'<font-size=10px>'.'現在:'.'<font color=#ff0000>'.$row['current_price'].'円'.'</small>';
           echo '</div>';
           echo '</div>';
           echo '</div>';
+
+
+          // if(sold_out == true){
+          //   echo './ProductDetailUnconfirmed.php';
+          // }else if(sold_out == false){
+          //   echo './ProductDetailConfirmed.php';
+          // }
+
         }
 
         ?>

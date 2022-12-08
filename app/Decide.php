@@ -1,3 +1,28 @@
+<?php
+session_start();
+require_once '../database/DBManager.php';
+$dbmng = new DBManager();
+
+$product_id = 1;
+//$product_id = $_GET['product_id'];
+//即決価格を取得
+$productArray = $dbmng->getProductListByProduc_id($product_id);
+foreach ($productArray as $row) {
+  $buyout_price= $row['buyout_price'];
+}
+//落札処理 
+if(isset($_POST['buyBtn'])){
+  $sold_out=1;
+  $result=$dbmng->productBidDecide($buyout_price,$sold_out,$_SESSION['id'],$product_id);
+  if($result == true){
+    $_SESSION['amount'] =$buyout_price;//金額をセッションで次ページへ
+    header("Location: DicideCompletion.php");
+  }else{
+    echo "<script> alert('落札できませんでした。');
+    location.href='ProductList.php';</script>";
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -6,6 +31,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <title>即決画面</title>
+
 
 
     <style>
@@ -105,13 +131,17 @@
           <div style="display:flex;">
             </div>
             <p class="lead text-center" style="margin-top: 20px;">以下の金額で今すぐ落札できます。</p>
-          <p class="lead text-center" style="margin-top: 20px;">即決価格　　　　　　円</p>
+          <p class="lead text-center" style="margin-top: 20px;">即決価格<?php echo $buyout_price; ?>円</p>
       </div>
 
       <p>
+
+      <form method="post" action="" name="BuyForm">
       <div class="button_solid001" style="margin-top: 50px;">
-        <a href="DicideCompletion.php" style="text-decoration: none;">落札する</a>
+        <input type="hidden" name="buyBtn">
+        <a href="javascript:BuyForm.submit()" style="text-decoration: none;">落札する</a>
       </div>
+      </form>
       </p>
 
 </main>
