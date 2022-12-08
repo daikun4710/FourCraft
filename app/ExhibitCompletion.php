@@ -1,3 +1,17 @@
+<?php
+session_start();
+$loginFlag = false;
+  if(isset($_SESSION['id']) == true){
+    //セッションあり
+    $loginFlag =true;
+  }
+  if(isset($_POST['logoutBtn'])){
+    //ログアウト
+    session_destroy();
+    header("Location: Login.php");
+    exit();
+  }
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -30,21 +44,22 @@
         }
 
         #title{
-            background:#ffd700;
+            background:#FFC10780;
             width:100%;
-            height:100px;
-            font-size: 300%;
+            height:47.78px;
+            font-size: 36px;
             font-weight: bolder;
             display: flex;
             justify-content: center;
             align-items: center;
-            position:fixed;
-            top:73px;
+            margin-top: 75px;
+            /* position:fixed; */
+            /* top:73px;
             left:0;
-            z-index: 9999;
+            z-index: 9999; */
         }
         #shohinmei{
-            margin-top: 200px;
+            /* margin-top: 200px; */
             font-size: 200%;
             text-align: center;
            
@@ -91,7 +106,7 @@
         }
 
         html {
-            height: 120%;
+            height: 100%;
             width: 100%;
         }
     }
@@ -107,21 +122,22 @@
             z-index: 9999;
         }
         #title{
-            background:#ffd700;
+            background:#FFC10780;
             width:100%;
             height:60px;
-            font-size: 300%;
+            font-size: 36px;
             font-weight: bolder;
             display: flex;
             justify-content: center;
             align-items: center;
-            position:fixed;
+            margin-top: 222px;
+            /* position:fixed;
             top:210px;
             left:0;
-            z-index: 9999;
+            z-index: 9999; */
         }
         #shohinmei{
-            margin-top: 20px;
+            /* margin-top: 20px; */
             font-size: 200%;
             text-align: left;
             
@@ -138,6 +154,7 @@
         .order{
             flex-direction: column-reverse;
             display: flex;
+            margin-top: -270px;
         }
         .yoko{
            display: flex; 
@@ -173,7 +190,7 @@
         }
 
             html {
-            height: 150%;
+            height: 100%;
             width: 100%;
             }
         }
@@ -185,30 +202,52 @@
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             
                 <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
-                id ="logo">
+                id="logo">
                 <img src="./images/Logo.png" width="40" alt="ロゴ" class="ms-lg-0 me-3 me-lg-0">
                 <use xlink:href="#bootstrap"></use>
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ml-0">
-                <li><a href="../ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
-                <li><a href="../Exhibit.php" class="nav-link px-2 text-white">商品を出品する</a></li>
-                </ul>
-          
+                <li><a href="./ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
+                <?php
+                  if($loginFlag == false){
+                    //セッションがあれば
+                    echo '<li><a href="./Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>';
+                  }else{
+                    echo '<li><a href="./Exhibit.php" class="nav-link px-2 text-white">商品を出品する</a></li>';
+                  }
+                ?>
                 
+                </ul>
             
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 ">
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
             <input type="search" class="form-control form-control-dark" placeholder="検索..." aria-label="Search">
             </form>
             
             <div class="text-end me-n5" id="headerBtn">
-            <button type="button" onclick="location.href='../MyPage.php'"
-             class="btn btn-outline-light me-2 me-lg-4">  マイページ　 </button>
+              
+            <?php
+              if($loginFlag == false){
+                //セッションがあれば
+                echo '<button type="button" onclick="location.href=' , "'./Login.php'" , '" 
+                class="btn btn-outline-light me-2">ログイン</button>',
+                '<button type="button" onclick="location.href=' ,"'./Register.php'" ,'" 
+                class="btn btn-warning">新規登録</button>';
+              }else{
+                //ログアウトボタン
+                echo '<form action="" method="post">';
+                echo '<button type="submit" onclick="location.href=' , "'./MyPage.php'" , '"
+                class="btn btn-outline-light me-2 me-lg-4" name="logoutBtn">　　ログアウト　　</button>';
+                echo '</form>';
+              }
+            ?>
+            
             </div>
             
         </div>
         </div>
-    </header><!--↑ ヘッダー -->
+    </header><!-- ↑ ヘッダー -->
+
 
 
 

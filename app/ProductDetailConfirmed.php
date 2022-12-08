@@ -1,3 +1,32 @@
+<?php
+session_start();
+$loginFlag = false;
+  if(isset($_SESSION['id']) == true){
+    //セッションあり
+    $loginFlag =true;
+  }
+  if(isset($_POST['logoutBtn'])){
+    //ログアウト
+    session_destroy();
+    header("Location: Login.php");
+    exit();
+  }
+require_once '../database/DBManager.php';
+$dbmng = new DBManager();
+$product_id = $_GET['product_id'];
+$productArray = $dbmng->getProductListByProduc_id($product_id);
+
+foreach ($productArray as $row) {
+    $image = $row['image'];//画像
+    $product_name = $row['product_name'];//商品名
+    $product_description = $row['product_description']; //商品説明
+    $buyout_price = $row['buyout_price']; //即決価格
+    $current_price = $row['current_price']; //現在価格
+    $sold_out= $row['sold_out']; //売り切れフラグ 0 or 1
+    $category= $row['category']; //カテゴリ
+    $condition= $row['condition']; //商品の状態
+}
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -18,6 +47,29 @@
 
       #ProductDetailConfirmed_syohin{
           font-size: 25px;
+          padding-top: 11px;
+      }
+      
+      #ProductDetailConfirmed_syuryo1{
+          width: auto;
+          height: 60px;
+          background-color: red;
+          top:0;
+            bottom:0;
+            left:0;
+            right:0;
+            margin:auto;
+            position: absolute;
+      }
+
+      #ProductDetailConfirmed_syuryo2{
+          font-size: 50px;
+          color: white;
+          display: flex;
+            justify-content: center;
+            align-items:center;
+            text-align:center;
+            
       }
 
       #ProductDetailConfirmed_syohinsestumei{
@@ -39,8 +91,18 @@
         font-size: 20px;
         margin-left: 10px;
         margin-right: 10px;
+        position: relative;
     }
-
+    
+    .gazou{
+        height: 350px;
+        width: auto;
+        /* background-color: #D9D9D9; */
+        margin-top: 10px;
+        font-size: 20px;
+        
+        position: relative;
+    }
 
 
 .button{
@@ -60,7 +122,7 @@
     border : solid 1px transparent ;
     margin-left: 35%;
     margin-right: 30%;
-    margin-top: 5%;
+    margin-top: 7%;
 }
 .button__text{
     position : relative ;
@@ -331,15 +393,60 @@
 
         .bd-example{
             width:70%;
-            margin-top:3.5%;
-            margin-left:9%;
+            margin-top:7%;
+            margin-left:15%;
         }
 
         #ProductDetailConfirmed_syuuryou{
-          margin-left: 22%;
-          margin-top: 5%;
-          margin-right: 20%;
+            display: flex;
+            justify-content: center;
+            align-items:center;
+            text-align:center;
+            margin-top:10%;
+            color: red;
         }
+
+        /* レスポンシブ対応 */
+        @media screen and (max-width: 990px) {
+        #ProductDetailConfirmed_syohinmei{
+            margin-top: 210px;
+        }
+      }
+
+      @media screen and (max-width: 990px) {
+        .button{
+            margin-left:auto;
+            margin-right:auto;
+            margin-top:4%;
+        }
+      }
+
+      @media screen and (max-width: 990px) {
+        #ProductDetailConfirmed_syuuryou{
+            display: flex;
+            justify-content: center;
+            align-items:center;
+            text-align:center;
+            margin-top:4%;
+        }
+      }
+
+      @media screen and (max-width: 990px) {
+        #ProductDetailConfirmed_syuryo2{
+            display: flex;
+            justify-content: center;
+            align-items:center;
+            text-align:center;
+        }
+      }
+
+      @media screen and (max-width: 990px) {
+        .bd-example{
+            margin-left:auto;
+            margin-right:auto;
+            width:70%;
+        }
+      }
   </style>
 </head>
 <body>
@@ -355,8 +462,16 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ml-0">
-                <li><a href="../ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
-                <li><a href="../Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>
+                <li><a href="./ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
+                <?php
+                  if($loginFlag == false){
+                    //セッションがあれば
+                    echo '<li><a href="./Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>';
+                  }else{
+                    echo '<li><a href="./Exhibit.php" class="nav-link px-2 text-white">商品を出品する</a></li>';
+                  }
+                ?>
+                
                 </ul>
             
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -364,30 +479,53 @@
             </form>
             
             <div class="text-end me-n5" id="headerBtn">
-            <button type="button" onclick="location.href='../Login.php'" 
-            class="btn btn-outline-light me-2">ログイン</button>
-            <button type="button" onclick="location.href='../Register.php'" 
-            class="btn btn-warning">新規登録</button>
+              
+            <?php
+              if($loginFlag == false){
+                //セッションがあれば
+                echo '<button type="button" onclick="location.href=' , "'./Login.php'" , '" 
+                class="btn btn-outline-light me-2">ログイン</button>',
+                '<button type="button" onclick="location.href=' ,"'./Register.php'" ,'" 
+                class="btn btn-warning">新規登録</button>';
+              }else{
+                //ログアウトボタン
+                echo '<form action="" method="post">';
+                echo '<button type="submit" onclick="location.href=' , "'./MyPage.php'" , '"
+                class="btn btn-outline-light me-2 me-lg-4" name="logoutBtn">　　ログアウト　　</button>';
+                echo '</form>';
+              }
+            ?>
+            
             </div>
             
         </div>
         </div>
-    </header>↑ ヘッダー
+    </header><!-- ↑ ヘッダー -->
 
   <div class="containaer-fluid">
   <div id="ProductDetailConfirmed_syohinmei">
-    <h1 id="ProductDetailConfirmed_syohin">商品名</h1>
+    <h1 id="ProductDetailConfirmed_syohin"><?php echo "　".$product_name ?></h1>
   </div>
-<div class="row">
-  <div class="col-5">
-  <div id="ProductDetailConfirmed_syohingazou">商品画像</div>
-  </div>
+        <div class="row">
+            <div class="col-lg-5">
+                <div id="ProductDetailConfirmed_syohingazou" >
+                    <div class="gazou">
+                    <?php
+                        $img = base64_encode($image);
+                        echo '<img src='.'"data:image/jpg;'.'base64,'.$img.'"'.'class="bd-placeholder-img card-img-top" width="100%" height="100% xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"'.'>';
+                        ?>
+                        </div>
+                    <div id="ProductDetailConfirmed_syuryo1">
+                        <h1 id="ProductDetailConfirmed_syuryo2">SOLD OUT</h1>
+                    </div>
+                </div>
+            </div>
 
-  <div class="col-7">
+  <div class="col-lg-7">
         <h3 id="ProductDetailConfirmed_syuuryou">このオークションは終了しています。</h3>
         <div style="display:flex;">
         
-        <a href="" class="button">
+        <a href="ProductList.php" class="button">
             <span class="button__text">戻る</span>
             <div class="materials">
                 <div class="materials__bar"></div>
@@ -407,13 +545,13 @@
       <thead>
     <tr>
       <th width="30%">カテゴリ</th>
-      <th width="70%">First</th>
+      <th width="70%"><?php echo "　".$category ?></th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>状態</th>
-      <td>Mark</td>
+      <td><?php echo "　".$condition ?></td>
     </tr>
   </tbody>
 
@@ -421,7 +559,7 @@
 </div>
 
   </div>
-    <div id="ProductDetailConfirmed_syohinsestumei">商品説明</div>
+    <div id="ProductDetailConfirmed_syohinsestumei"><?php echo "　".$product_description ?></div>
     </div>
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

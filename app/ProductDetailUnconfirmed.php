@@ -1,3 +1,21 @@
+<?php
+session_start();
+require_once '../database/DBManager.php';
+$dbmng = new DBManager();
+$product_id = $_GET['product_id'];
+$productArray = $dbmng->getProductListByProduc_id($product_id);
+
+foreach ($productArray as $row) {
+    $image = $row['image'];//画像
+    $product_name = $row['product_name'];//商品名
+    $product_description = $row['product_description']; //商品説明
+    $buyout_price = $row['buyout_price']; //即決価格
+    $current_price = $row['current_price']; //現在価格
+    $sold_out= $row['sold_out']; //売り切れフラグ 0 or 1
+    $category= $row['category']; //カテゴリ
+    $condition= $row['condition']; //商品の状態
+}
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -18,6 +36,7 @@
 
       #ProductDetailUnconfirmed_syohin{
           font-size: 25px;
+          padding-top: 11px;
       }
 
         #ProductDetailUnconfirmed_syohinsestumei{
@@ -32,7 +51,7 @@
     }
 
     #ProductDetailUnconfirmed_syohingazou{
-        height: 350px;
+        height: 100%;
         width: auto;
         background-color: #D9D9D9;
         margin-top: 10px;
@@ -335,6 +354,52 @@
             margin-left:9%;
         }
 
+        /* レスポンシブ対応 */
+        @media screen and (max-width: 990px) {
+        #ProductDetailUnconfirmed_syohinmei{
+            margin-top: 210px;
+        }
+      }
+
+      @media screen and (max-width: 990px) {
+        #ProductDetailUnconfirmed_syohingazou{
+            height: 250px;
+            width: auto;
+        }
+      }
+
+      @media screen and (max-width: 990px) {
+        #ProductDetailUnconfirmed_genzaikakaku{
+            margin-left:auto;
+            margin-right:auto;
+            margin-top: 5%;
+        }
+      }
+
+      @media screen and (max-width: 990px) {
+        #ProductDetailUnconfirmed_sokketukakaku{
+            margin-left:auto;
+            margin-right:auto;
+            margin-top:4%;
+        }
+      }
+
+      @media screen and (max-width: 990px) {
+        .button{
+            margin-left:auto;
+            margin-right:auto;
+            margin-top:4%;
+        }
+      }
+
+      @media screen and (max-width: 990px) {
+        .bd-example{
+            margin-left:auto;
+            margin-right:auto;
+            width:70%;
+        }
+      }
+
   </style>
 </head>
 <body>
@@ -350,8 +415,8 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ml-0">
-                <li><a href="../ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
-                <li><a href="../Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>
+                <li><a href="./ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
+                <li><a href="./Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>
                 </ul>
             
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -359,9 +424,9 @@
             </form>
             
             <div class="text-end me-n5" id="headerBtn">
-            <button type="button" onclick="location.href='../Login.php'" 
+            <button type="button" onclick="location.href='../app/Login.php'" 
             class="btn btn-outline-light me-2">ログイン</button>
-            <button type="button" onclick="location.href='../Register.php'" 
+            <button type="button" onclick="location.href='../app/Register.php'" 
             class="btn btn-warning">新規登録</button>
             </div>
             
@@ -374,11 +439,11 @@
     <h1 id="ProductDetailUnconfirmed_syohin">商品名</h1>
   </div>
 <div class="row">
-  <div class="col-5">
+  <div class="col-lg-5">
   <div id="ProductDetailUnconfirmed_syohingazou">商品画像</div>
   </div>
 
-  <div class="col-7">
+  <div class="col-lg-7">
     <div style="display: flex;">
         <div id="ProductDetailUnconfirmed_genzaikakaku">現在価格：
     </div>
@@ -390,7 +455,7 @@
     </div>
         <div style="display:flex;">
         
-        <a href="" class="button">
+        <a href="Bid.php" class="button">
             <span class="button__text">入札</span>
             <div class="materials">
                 <div class="materials__bar"></div>
@@ -403,7 +468,7 @@
                 <div class="materials__circle"></div>
             </div>
         </a>
-        <a href="" class="button">
+        <a href="Decide.php" class="button">
             <span class="button__text">今すぐ落札</span>
             <div class="materials">
                 <div class="materials__bar"></div>
