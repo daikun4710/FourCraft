@@ -1,5 +1,16 @@
 <?php
 session_start();
+$loginFlag = false;
+  if(isset($_SESSION['id']) == true){
+    //セッションあり
+    $loginFlag =true;
+  }
+  if(isset($_POST['logoutBtn'])){
+    //ログアウト
+    session_destroy();
+    header("Location: Login.php");
+    exit();
+  }
 require_once '../database/DBManager.php';
 $dbmng = new DBManager();
 $product_id = $_GET['product_id'];
@@ -82,7 +93,16 @@ foreach ($productArray as $row) {
         margin-right: 10px;
         position: relative;
     }
-
+    
+    .gazou{
+        height: 350px;
+        width: auto;
+        /* background-color: #D9D9D9; */
+        margin-top: 10px;
+        font-size: 20px;
+        
+        position: relative;
+    }
 
 
 .button{
@@ -442,8 +462,16 @@ foreach ($productArray as $row) {
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ml-0">
-                <li><a href="http://localhost/FourCraft/app/ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
-                <li><a href="http://localhost/FourCraft/app/Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>
+                <li><a href="./ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
+                <?php
+                  if($loginFlag == false){
+                    //セッションがあれば
+                    echo '<li><a href="./Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>';
+                  }else{
+                    echo '<li><a href="./Exhibit.php" class="nav-link px-2 text-white">商品を出品する</a></li>';
+                  }
+                ?>
+                
                 </ul>
             
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -451,23 +479,42 @@ foreach ($productArray as $row) {
             </form>
             
             <div class="text-end me-n5" id="headerBtn">
-            <button type="button" onclick="location.href='../app/Login.php'" 
-            class="btn btn-outline-light me-2">ログイン</button>
-            <button type="button" onclick="location.href='../app/Register.php'" 
-            class="btn btn-warning">新規登録</button>
+              
+            <?php
+              if($loginFlag == false){
+                //セッションがあれば
+                echo '<button type="button" onclick="location.href=' , "'./Login.php'" , '" 
+                class="btn btn-outline-light me-2">ログイン</button>',
+                '<button type="button" onclick="location.href=' ,"'./Register.php'" ,'" 
+                class="btn btn-warning">新規登録</button>';
+              }else{
+                //ログアウトボタン
+                echo '<form action="" method="post">';
+                echo '<button type="submit" onclick="location.href=' , "'./MyPage.php'" , '"
+                class="btn btn-outline-light me-2 me-lg-4" name="logoutBtn">　　ログアウト　　</button>';
+                echo '</form>';
+              }
+            ?>
+            
             </div>
             
         </div>
         </div>
-    </header>↑ ヘッダー
+    </header><!-- ↑ ヘッダー -->
 
   <div class="containaer-fluid">
   <div id="ProductDetailConfirmed_syohinmei">
-    <h1 id="ProductDetailConfirmed_syohin">商品名</h1>
+    <h1 id="ProductDetailConfirmed_syohin"><?php echo "　".$product_name ?></h1>
   </div>
         <div class="row">
             <div class="col-lg-5">
-                <div id="ProductDetailConfirmed_syohingazou">
+                <div id="ProductDetailConfirmed_syohingazou" >
+                    <div class="gazou">
+                    <?php
+                        $img = base64_encode($image);
+                        echo '<img src='.'"data:image/jpg;'.'base64,'.$img.'"'.'class="bd-placeholder-img card-img-top" width="100%" height="100% xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"'.'>';
+                        ?>
+                        </div>
                     <div id="ProductDetailConfirmed_syuryo1">
                         <h1 id="ProductDetailConfirmed_syuryo2">SOLD OUT</h1>
                     </div>
@@ -498,13 +545,13 @@ foreach ($productArray as $row) {
       <thead>
     <tr>
       <th width="30%">カテゴリ</th>
-      <th width="70%">First</th>
+      <th width="70%"><?php echo "　".$category ?></th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>状態</th>
-      <td>Mark</td>
+      <td><?php echo "　".$condition ?></td>
     </tr>
   </tbody>
 
@@ -512,7 +559,7 @@ foreach ($productArray as $row) {
 </div>
 
   </div>
-    <div id="ProductDetailConfirmed_syohinsestumei">商品説明</div>
+    <div id="ProductDetailConfirmed_syohinsestumei"><?php echo "　".$product_description ?></div>
     </div>
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
