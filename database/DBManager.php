@@ -18,7 +18,7 @@
 
     public function getProductList(){
       $pdo = $this->dbConnect();
-      $sql = "SELECT * FROM Product";
+      $sql = "SELECT * FROM Product ORDER BY product_id DESC";
       $selectdata = $pdo->query($sql);
       return $selectdata;
     }
@@ -29,6 +29,17 @@
       $ps = $pdo->prepare($sql);
       $ps->bindValue(1, $product_id, PDO::PARAM_INT);
       $ps->execute();
+      $selectdata = $ps->fetchAll();
+      return $selectdata;
+    }
+    //キーワードで商品検索
+    public function getProductListByKey($key){
+      $pdo = $this->dbConnect();
+      $sql = "SELECT * FROM Product WHERE product_name LIKE ? OR product_description LIKE ?";
+      $ps= $pdo->prepare($sql);
+      $ps -> bindValue(1,"%$key%",PDO::PARAM_STR);
+      $ps -> bindValue(2,"%$key%",PDO::PARAM_STR);
+      $ps -> execute();
       $selectdata = $ps->fetchAll();
       return $selectdata;
     }
@@ -91,41 +102,72 @@
       // }
       return true;
   }
+  //終了日時で売り切れフラグ更新
+  public function updateSold_out(){
+    $pdo = $this->dbConnect();
+    $sql ="UPDATE Product SET sold_out=?  WHERE end_date <= ?";
 
-    //出品処理
-    public function productExhibit($image, $product_name, $product_description, $buyout_price, $current_price, $sold_out, $category, $condition, $end_date){
-      $pdo = $this->dbConnect();
-      $sql ="INSERT INTO Product (image, product_name, product_description, buyout_price, current_price, sold_out, category, end_date, start_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
-      $ps = $pdo->prepare($sql);
-      //product_idはAutoincrement
-      //↓画像は入力先でいろいろ書かなきゃだめ
-      $ps->bindValue(1, $image,PDO::PARAM_STR);
-      $ps->bindValue(2, $product_name, PDO::PARAM_STR);
-      $ps->bindValue(3, $product_description, PDO::PARAM_STR);
-      $ps->bindValue(4, $buyout_price, PDO::PARAM_INT);
-      $ps->bindValue(5, $current_price, PDO::PARAM_INT);
-      $ps->bindValue(6, $sold_out, PDO::PARAM_INT);
-      $ps->bindValue(7, $category, PDO::PARAM_STR);
-      $ps->bindValue(8, $condition, PDO::PARAM_STR);
-      $ps->bindValue(9, $end_date, PDO::PARAM_STR);
-      $ps->bindValue(10, date('Y-m-d'), PDO::PARAM_STR);
-      $ps->execute();
-    }
+    $ps = $pdo->prepare($sql);
+    $ps->bindValue(1,1, PDO::PARAM_INT);
+    $ps->bindValue(2,date('Y-m-d'), PDO::PARAM_STR);
+    $ps->execute();
+  }
 
-    
-    //誰が出品したか
-    public function userExhibit($exhibit_user_id){
-      $pdo = $this->dbConnect();
-      $selectSQL = "SELECT product_id FROM Product";
-      $product_id = $pdo->query($selectSQL);
+  //出品処理
+  public function productExhibit($image, $product_name, $product_description, $buyout_price, $current_price, $category, $condition, $end_date){
+    $pdo = $this->dbConnect();
+    $sql ="INSERT INTO Product VALUES (0,?,?,?,?,?,?,?,?,?,?)";
+    $ps = $pdo->prepare($sql);
+    //product_idはAutoincrement
+    //↓画像は入力先でいろいろ書かなきゃだめ
+    $ps->bindValue(1, $image, PDO::PARAM_STR);
+    $ps->bindValue(2, $product_name, PDO::PARAM_STR);
+    $ps->bindValue(3, $product_description, PDO::PARAM_STR);
+    $ps->bindValue(4, $buyout_price, PDO::PARAM_INT);
+    $ps->bindValue(5, $current_price, PDO::PARAM_INT);
+    $ps->bindValue(6, 0, PDO::PARAM_INT);
+    $ps->bindValue(7, $category, PDO::PARAM_STR);
+    $ps->bindValue(8, $condition, PDO::PARAM_STR);
+    $ps->bindValue(9, $end_date, PDO::PARAM_STR);
+    $ps->bindValue(10, date('Y-m-d'), PDO::PARAM_STR);
+    $ps->execute();
+  }
 
-      $sql ="INSERT INTO Exhibit (product_id, exhibit_user_id) VALUES (?,?)";
-      $ps = $pdo->prepare($sql);
-      $ps->bindValue(1, $product_id, PDO::PARAM_STR);
-      //sessionIDで取得する↓
-      $ps->bindValue(2, $exhibit_user_id, PDO::PARAM_STR);
-      $ps->execute();
-    }
+  //誰が出品したか
+  public function userExhibit($exhibit_user_id, $product_id){
+    $pdo = $this->dbConnect();
+    $sql ="INSERT INTO Exhibit (product_id, exhibit_user_id) VALUES (?,?)";
+    $ps = $pdo->prepare($sql);
+    $ps->bindValue(1, $product_id, PDO::PARAM_INT);
+    //sessionIDで取得する↓
+    $ps->bindValue(2, $exhibit_user_id, PDO::PARAM_INT);
+    $ps->execute();
+  }
+
+  //商品名前で商品検索
+  public function getProductListByProduct_name($product_name){
+    $pdo = $this->dbConnect();
+    $sql ="SELECT * FROM Product WHERE product_name = ?";
+    $ps = $pdo->prepare($sql);
+    $ps->bindValue(1, $product_name, PDO::PARAM_STR);
+    $ps->execute();
+    $selectdata = $ps->fetchAll();
+    return $selectdata;
 
   }
+
+      //テストインサート
+    //   public function test($mail,$pass){
+    //     $pdo = $this->dbConnect();
+    //     $sql ="INSERT INTO Exhibit (product_id, exhibit_user_id) VALUES (?,?)";
+    //     $ps = $pdo->prepare($sql);
+    //     $ps->bindValue(1, $mail, PDO::PARAM_STR);
+    //     $ps->bindValue(2,$pass, PDO::PARAM_STR);
+    //     $ps->execute();
+    // }
+
+
+
+}
+
 ?>

@@ -1,5 +1,30 @@
 <?php
 session_start();
+require_once '../database/DBManager.php';
+$dbmng = new DBManager();
+
+if(isset($_POST['btn'])){
+  if(is_uploaded_file( $_FILES['image']['tmp_name'])){
+    $image = file_get_contents($_FILES['image']['tmp_name']);
+    $product_name = $_POST['product_name'];
+    $product_description = $_POST['product_description'];
+    $buyout_price = $_POST['buyout_price'];
+    $current_price = $_POST['current_price'];
+    $category = $_POST['category'];
+    $condition = $_POST['condition'];
+    $end_date = $_POST['end_date'];
+
+    $dbmng->productExhibit($image, $product_name, $product_description, $buyout_price, $current_price, $category, $condition, $end_date);
+
+    $who = $dbmng->getProductListByProduct_name($product_name);
+    foreach ($who as $row) {
+      $product_id = $row['product_id'];//商品ID
+    }
+    $dbmng->userExhibit($_SESSION['id'], $product_id);
+    // $dbmng->test($_POST['category'],$_POST['condition']);
+    header('Location: ExhibitCompletion.php?product_id='.$product_id);
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -102,7 +127,8 @@ session_start();
 
       <div class="col-md-3">
           <div class="mb-3">
-            <form action="./ExhibitCompletion.php" enctype="multipart/form-data" method="post">
+
+            <form action="" enctype="multipart/form-data" method="post">
             <label for="formFile" class="form-label">画像を登録</label>
             <input class="form-control" type="file" id="formFile" name="image">
             <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -197,9 +223,10 @@ session_start();
       
       <div class="d-grid gap-2 col-3 mx-auto">
         <!-- <button class="btn btn-lg btn-info btn-opacity-50" type="button">出品する</button> -->
-        <input type="submit" value="出品する" class="btn btn-lg btn-info btn-opacity-50">
+        <input type="submit" value="出品する" class="btn btn-lg btn-info btn-opacity-50" name="btn">
       </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
   </body>
 </html>
