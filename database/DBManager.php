@@ -142,7 +142,6 @@
     $ps->bindValue(2, $exhibit_user_id, PDO::PARAM_INT);
     $ps->execute();
   }
-
   //商品名前で商品検索
   public function getProductListByProduct_name($product_name){
     $pdo = $this->dbConnect();
