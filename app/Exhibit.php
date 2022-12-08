@@ -88,50 +88,38 @@ session_start();
         </div>
     </header><!-- ↑ ヘッダー -->
 </head>
-<body>
-
-  <div class="container-fluid">
-    <div class ="row">
-      <div class="h1 col-12 themed-grid-col text-center 
-      bg-warning bg-opacity-50 mb-0">商品情報入力</div>
-      <div class="h3 col-12 themed-grid-col 
-      bg-secondary bg-opacity-10">商品の情報</div>
-    </div>
-
-      <div class="col-md-3">
-        <div class="mb-3">
-          <!-- <form action="" enctype="multipart/form-data" method="post"> -->
-          <label for="formFile" class="form-label">画像を登録</label>
-          <input class="form-control" type="file" id="formFile" name="productImg">
-          <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="submit" 
-            class="btn btn-info btn-opacity-50 mt-1">アップロード</button>
-          </div> -->
-          <!-- </form> -->
-        </div>
-        <img src="" alt="" class="img-fluid" width="300px">
+  <body>
+    <div class="container-fluid">
+      <div class ="row">
+        <div class="h1 col-12 themed-grid-col text-center
+        bg-warning bg-opacity-50 mb-0">商品情報入力</div>
+        <div class="h3 col-12 themed-grid-col
+        bg-secondary bg-opacity-10">商品の情報</div>
       </div>
-      <div class="col-md-9">
-
-    
-    <form action="ExhibitCompletion.php" enctype="multipart/form-data" method="post">
-
       <div class="row featurette">
 
-        <div class="col-md-3">
+
+
+      <div class="col-md-3">
           <div class="mb-3">
+            <form action="./ExhibitCompletion.php" enctype="multipart/form-data" method="post">
             <label for="formFile" class="form-label">画像を登録</label>
             <input class="form-control" type="file" id="formFile" name="image">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            </div>
+            <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button type="submit"
+              class="btn btn-info btn-opacity-50 mt-1">アップロード</button>
+            </div> -->
+            <!-- </form> -->
           </div>
           <img src="" alt="" class="img-fluid" width="300px">
         </div>
         <div class="col-md-9">
 
-          <div class="form-group mb-1" style="display: flex;">
+
+
+        <div class="form-group mb-1" style="display: flex;">
             <label for="text1">商品名　　　</label>
-            <input type="text" id="text1" name="product_name" class="form-control">
+            <input type="text" id="text1" class="form-control" name="product_name">
           </div>
           
           <div style="display: flex;" class="mb-1">
@@ -139,7 +127,7 @@ session_start();
             <select class="form-select" id="country" required="" wtx-context="2680039D-EAD9-4146-A7F1-3D74F8918917" name="category">
               <option value="">選択...</option>
               <option value="服">服</option>
-              <option value="靴">靴</option> 
+              <option value="靴">靴</option>
               <option value="アクセサリー">アクセサリー</option>
               <option value="グッズ">グッズ</option>
             </select>
@@ -149,12 +137,14 @@ session_start();
           </div>
           
 
-          <div style="display: flex;" class="mb-1">
+
+
+        <div style="display: flex;" class="mb-1">
             <label for="country" class="form-label">商品の状態　</label>
-            <select class="form-select" id="country" required="" wtx-context="2680039D-EAD9-4146-A7F1-3D74F8918917">
+            <select class="form-select" id="country" required="" wtx-context="2680039D-EAD9-4146-A7F1-3D74F8918917" name="condition">
               <option value="">選択...</option>
               <option value="新品">新品</option>
-              <option value="使用感あり">使用感あり</option> 
+              <option value="使用感あり">使用感あり</option>
               <option value="傷あり">傷あり</option>
               <option value="ボロボロ">ボロボロ</option>
             </select>
@@ -165,12 +155,14 @@ session_start();
           
       </div>
 
-      <div class="col-1 mb-1">
+
+
+    <div class="col-1 mb-1">
         <p>価格</p>
       </div>
       <div class="col-md-5 col-11 mb-1">
             <div class="form-group" style="display: flex;">
-              <input type="number" id="text1" name="current_price" class="form-control">
+              <input type="number" id="text1" class="form-control" name="current_price">
             </div>
       </div>
       
@@ -179,18 +171,22 @@ session_start();
       </div>
       <div class="col-md-5 col-11 mb-1">
         <div class="form-group" style="display: flex;">
-          <input type="number" id="text1" name="buyout_price" class="form-control">
+          <input type="number" id="text1" class="form-control" name="buyout_price">
         </div>
       </div>
 
-      <div class="col-1 mb-1">
+
+
+    <div class="col-1 mb-1">
         <p>終了日時</p>
       </div>
       <div class ="col-11 mb-1">
         <input type="date" name="end_date">
       </div>
 
-      <div class="col-1 mb-1">
+
+
+    <div class="col-1 mb-1">
         <p>商品説明</p>
       </div>
       <div class ="col-11 mb-1">
@@ -204,8 +200,6 @@ session_start();
         <input type="submit" value="出品する" class="btn btn-lg btn-info btn-opacity-50">
       </div>
     </div>
-  </form>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+  </body>
 </html>

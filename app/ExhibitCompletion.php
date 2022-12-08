@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once '../database/DBManager.php';
+$dbmng = new DBManager();
 $loginFlag = false;
   if(isset($_SESSION['id']) == true){
     //セッションあり
