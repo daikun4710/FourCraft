@@ -21,6 +21,7 @@
 
       #ProductDetailUnconfirmed_syohin{
           font-size: 25px;
+          padding-top: 11px;
       }
 
         #ProductDetailUnconfirmed_syohinsestumei{
@@ -399,8 +400,8 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ml-0">
-                <li><a href="../ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
-                <li><a href="../Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>
+                <li><a href="http://localhost/FourCraft/app/ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
+                <li><a href="http://localhost/FourCraft/app/Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>
                 </ul>
             
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -408,9 +409,9 @@
             </form>
             
             <div class="text-end me-n5" id="headerBtn">
-            <button type="button" onclick="location.href='../Login.php'" 
+            <button type="button" onclick="location.href='../app/Login.php'" 
             class="btn btn-outline-light me-2">ログイン</button>
-            <button type="button" onclick="location.href='../Register.php'" 
+            <button type="button" onclick="location.href='../app/Register.php'" 
             class="btn btn-warning">新規登録</button>
             </div>
             
@@ -419,34 +420,44 @@
     </header>↑ ヘッダー
 
     <?php
+        $product_id = $_GET['product_id'];
+        echo $product_id;
         require_once '../database/DBManager.php';
         $dbmng = new DBManager();
-        $searchArray = $dbmng->ProductDetail(1);
+        $searchArray = $dbmng->getProductListByProduc_id($product_id);
+
     ?>
 
 <?php echo $searchArray['product_name'] ?>
   <div class="containaer-fluid">
   <div id="ProductDetailUnconfirmed_syohinmei">
-    <h1 id="ProductDetailUnconfirmed_syohin">商品名 </h1>
+    <h1 id="ProductDetailUnconfirmed_syohin"><?php echo $product_name ?></h1>
   </div>
 <div class="row">
   <div class="col-lg-5">
-  <div id="ProductDetailUnconfirmed_syohingazou">商品画像</div>
+  <div id="ProductDetailUnconfirmed_syohingazou">
+    <div class="gazou">
+        <?php
+            $img = base64_encode($image);
+            echo '<img src='.'"data:image/jpg;'.'base64,'.$img.'"'.'class="bd-placeholder-img card-img-top" width="100%" height="100% xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"'.'>';
+        ?>
+    </div>
+  </div>
   </div>
 
   <div class="col-lg-7">
     <div style="display: flex;">
         <div id="ProductDetailUnconfirmed_genzaikakaku">現在価格：
     </div>
-        <u id="ProductDetailUnconfirmed_genzaikakaku">20000 円</u>
+        <u id="ProductDetailUnconfirmed_genzaikakaku"><?php echo $current_price ?></u>
     </div>
     <div style="display: flex;">
         <div id="ProductDetailUnconfirmed_sokketukakaku">即決価格：</div>
-        <u id="ProductDetailUnconfirmed_sokketukakaku">1億 円</u>
+        <u id="ProductDetailUnconfirmed_sokketukakaku"><?php echo $buyout_price ?></u>
     </div>
         <div style="display:flex;">
         
-        <a href="" class="button">
+        <a href="Bid.php" class="button">
             <span class="button__text">入札</span>
             <div class="materials">
                 <div class="materials__bar"></div>
@@ -459,7 +470,7 @@
                 <div class="materials__circle"></div>
             </div>
         </a>
-        <a href="" class="button">
+        <a href="Decide.php" class="button">
             <span class="button__text">今すぐ落札</span>
             <div class="materials">
                 <div class="materials__bar"></div>
@@ -479,13 +490,13 @@
       <thead>
     <tr>
       <th width="30%">カテゴリ</th>
-      <th width="70%">First</th>
+      <th width="70%"><?php echo "　".$category ?></th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>状態</th>
-      <td>Mark</td>
+      <td><?php echo "　".$condition ?></td>
     </tr>
   </tbody>
 
@@ -493,7 +504,7 @@
 </div>
 
   </div>
-    <div id="ProductDetailUnconfirmed_syohinsestumei">商品説明</div>
+    <div id="ProductDetailUnconfirmed_syohinsestumei"><?php echo "　".$product_description ?></div>
     </div>
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

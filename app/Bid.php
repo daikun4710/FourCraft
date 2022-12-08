@@ -1,3 +1,33 @@
+<?php
+session_start();
+require_once '../database/DBManager.php';
+$dbmng = new DBManager();
+
+$product_id = $_GET['product_id'];
+//現在価格を取得
+$productArray = $dbmng->getProductListByProduc_id($product_id);
+foreach ($productArray as $row) {
+  $current_price= $row['current_price'];
+}
+//入札処理 
+if(isset($_POST['BidBtn']==true)){
+  if($_POST['amountBid']>$current_price){
+    
+    $sold_out=false; //売り切れフラグ
+    $amount = $_POST['BidBtn'];  //入札金額
+   
+    $result=$dbmng->productBidDecide($amount,$sold_out,$_SESSION['id'],$product_id);
+    if($result == true){
+      header("Location: BidCompletion.php");
+    }else{
+      echo "<script> alert('入札できませんでした。');
+      location.href='ProductList.php';</script>";
+    }
+  }else{
+    echo "<script> alert('現在価格よりも大きな金額を入力してください。');</script>";
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -9,42 +39,34 @@
 
 
     <style>
-      /* .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      } */
 
       header {
+        position: absolute;
           display: flex;
           width: 100%;
           height: 50px;
           background-color: #FFE27B;
           align-items: center;
-          position: relative;
         }
         
       .title {
-          /* margin: auto; */
-          position: absolute;
-          left: 47%;
+        background:#FFE27B;
+          height: 50px;
+          top: 50%;
+          display: flex;
+          justify-content: center; 
+          align-items: center; 
         }
         
       .menu-item {
-          list-style: none;
+        list-style: none;
           display: inline-block;
           padding: 10px;
           position: absolute;
           right: 0;
-          top: -22%;
+          top: -20px;
+          z-index: 9999;
+          font-size: 40px;
         }
 
       .bg-ddd{
@@ -72,10 +94,18 @@
           transform: translateY(-2px);
           box-shadow: 0 15px 30px -5px rgb(0 0 0 / 15%), 0 0 5px rgb(0 0 0 / 10%);
         }      
-        
+
+        .label{
+          white-space: nowrap;
+          text-align: center;
+          padding-top: 9%;
+        }
+
+      
         @media screen and (max-width: 600px) {
-          #label{
-            font-size: 1px;
+          .label{
+            /* font-size: 15px; */
+            white-space: nowrap;
           }
 
         }
@@ -85,45 +115,45 @@
   </head>
   <body>
 
-  <header>
-    <h2 class="title">入札</h2>
+  <!-- <header> -->
+    <!-- <h2 class="title">入札</h2>
     <nav class="nav">
       <ul>
-        <li class="menu-item"><a href="#" style="text-decoration: none;"><h2>×</h2></a></li>
+        <li class="menu-item"><a href="ProductDetailUnconfirmed.php" style="text-decoration: none;"><h2>×</h2></a></li>
       </ul>
-    </nav>
-  </header>
-    
-  <!-- <div class="navbar navbar-dark bg-warning shadow-sm">
-    <div class="container">
-      <a href="#" class="navbar-brand d-flex align-items-auto">
-        <strong><font color="black">入札</font></strong>
-      </a>
-      <a href="#" class="navbar-brand d-flex align-items-right">
-        <strong><font color="black">×</font></strong>
-      </a>
-    </div>
-  </div> -->
+    </nav> -->
 
+    <div>
+      <h2 class="title">入札</h2>
+      <a href="ProductDetailUnconfirmed.php" class="menu-item" style="text-decoration: none;">×</a>
+    </div>
+
+  <!-- </header> -->
+    
 <main>
+  <form method="post" action="" name="BidForm">
       <div style = "display:flex; align-items:center; ">
         <img src=./images/Logo.png width=100 class="mx-auto" vspace="50">
       </div>
       <div class="bg-ddd" style="width: auto; padding-top: 20px;">
           <div style="display:flex;">
-            <label for="staticEmail" colFormLabelLg" class="" $_GET style="margin-left: 18%;"><p id="label">入札額</p></label>
-              <input type="bid" class="form-control form-control-lg w-50" id="inputBid">
-              <label for="staticEmail" colFormLabelLg" class="" $_GET style="margin-right: 18%;"><h2>円</h2></label>
+
+            <label for="staticEmail" colFormLabelLg" class="" $_GET style="margin-left: 18%;"><h2 class="label">入札額</h2></label>
+              <input type="bid" class="form-control form-control-lg w-50" id="inputBid" name="amountBid">
+              <label for="staticEmail" colFormLabelLg" class="" $_GET style="margin-right: 18%;"><h2 style="margin-top: 25%;">円</h2></label>
             </div>
-          <p class="lead text-center" style="margin-top: 20px;">現在価格　　　　　　：円</p>
+          <p class="lead text-center" style="margin-top: 20px;">現在価格　<?php echo $current_price; ?>：円</p>
       </div>
 
       <p>
       <div class="button_solid001" style="margin-top: 50px;">
-        <a href="#" style="text-decoration: none;">入札する</a>
+
+        <input type="hidden" name="BidBtn">
+        <a href="javascript:BidForm.submit()" style="text-decoration: none;">入札する</a>
+
       </div>
       </p>
-
+  </form>      
 </main>
 
 

@@ -166,6 +166,11 @@
           echo '</a>';
 
 
+          // if(sold_out == true){
+          //   echo './ProductDetailUnconfirmed.php';
+          // }else if(sold_out == false){
+          //   echo './ProductDetailConfirmed.php';
+          // }
 
         }
 
