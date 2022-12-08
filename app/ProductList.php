@@ -11,6 +11,7 @@
     header("Location: Login.php");
     exit();
   }
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -47,7 +48,7 @@
         <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+                <a href="./ProductList.php" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
                 id="logo">
                 <img src="./images/Logo.png" width="40" alt="ロゴ" class="ms-lg-0 me-3 me-lg-0">
                 <use xlink:href="#bootstrap"></use>
@@ -65,9 +66,11 @@
                 ?>
                 
                 </ul>
-            
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-            <input type="search" class="form-control form-control-dark" placeholder="検索..." aria-label="Search">
+            <!-- 検索 -->
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="" method="POST"> 
+            <input type="search" class="form-control form-control-dark" placeholder="検索..." aria-label="Search"
+            name ="key">
+            <input type="submit"  name="search" style="display:none;" /> 
             </form>
             
             <div class="text-end me-n5" id="headerBtn">
@@ -132,10 +135,17 @@
         <?php
         require_once '../database/DBManager.php';
         $dbmng = new DBManager();
-      
+      if (isset($_POST['search']) ==false) {
+        //検索されていないとき
         $searchArray = $dbmng->getProductList();
-
+        $dbmng -> updateSold_out();
+      }else if(isset($_POST['search']) == true){
+        //検索されたとき
+        $searchArray = $dbmng->getProductListByKey($_POST['key']);
+      }
         foreach($searchArray as $row){
+
+
 
           // echo "<img src="."data:image/jpg;"."base64,".$img.">";
           echo '<div class="col">';
@@ -162,7 +172,7 @@
           // }
 
         }
-
+      
         ?>
 
 

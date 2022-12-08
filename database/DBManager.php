@@ -106,7 +106,6 @@
   public function updateSold_out(){
     $pdo = $this->dbConnect();
     $sql ="UPDATE Product SET sold_out=?  WHERE end_date <= ?";
-
     $ps = $pdo->prepare($sql);
     $ps->bindValue(1,1, PDO::PARAM_INT);
     $ps->bindValue(2,date('Y-m-d'), PDO::PARAM_STR);
