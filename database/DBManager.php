@@ -18,7 +18,7 @@
 
     public function getProductList(){
       $pdo = $this->dbConnect();
-      $sql = "SELECT * FROM Product";
+      $sql = "SELECT * FROM Product ORDER BY product_id DESC";
       $selectdata = $pdo->query($sql);
       return $selectdata;
     }

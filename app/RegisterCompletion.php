@@ -45,7 +45,8 @@ try { //ログインしてセッション作成
 
 
 
-<?php//新規登録処理
+<?php
+//新規登録処理
     require_once '../database/DBManager.php';
     $dbmng = new DBManager();
     $dbmng->setUser($_POST['mail'],$_POST['pass']);
@@ -57,14 +58,14 @@ try { //ログインしてセッション作成
 			    $_SESSION['id'] = $row['user_id'];
         }
     } catch (BadMethodCallException $bex) {
-        $msg='メールアドレスが存在しません。';
-        echo '<script> console.log('.json_encode( $msg ) ')
-        </script>';//コンソールに出力
+        
+       
+        //コンソールに出力
         header("location:Login.php");
     }catch(LogicException $lex){
-        $msg ='パスワードが一致しません';
-        echo '<script> console.log('.json_encode( $msg ) ')
-        </script>';//コンソールに出力
+        
+        
+        //コンソールに出力
         header("location:Login.php");
     }
 ?>
