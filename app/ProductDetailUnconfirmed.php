@@ -471,7 +471,9 @@ foreach ($productArray as $row) {
     </div>
         <div style="display:flex;">
         
-        <a href="Bid.php" class="button">
+        <?php
+         echo '<a href="./Bid.php?product_id='.$product_id.'" class="button">';
+        ?>
             <span class="button__text">入札</span>
             <div class="materials">
                 <div class="materials__bar"></div>
@@ -484,7 +486,10 @@ foreach ($productArray as $row) {
                 <div class="materials__circle"></div>
             </div>
         </a>
-        <a href="Decide.php" class="button">
+        <?php
+        $product_id = $_GET['product_id'];
+        echo '<a href="./Decide.php?product_id='.$product_id.'" class="button">';
+        ?>
             <span class="button__text">今すぐ落札</span>
             <div class="materials">
                 <div class="materials__bar"></div>
