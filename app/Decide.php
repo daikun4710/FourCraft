@@ -138,6 +138,17 @@ if(isset($_POST['buyBtn'])){
 
       <form method="post" action="" name="BuyForm">
       <div class="button_solid001" style="margin-top: 50px;">
+        <a href="#" style="text-decoration: none;">落札する</a>
+      </div>
+      </p>
+
+      <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+</main>
+  
+</body>
+        <a href="DicideCompletion.php" style="text-decoration: none;">落札する</a>
         <input type="hidden" name="buyBtn">
         <a href="javascript:BuyForm.submit()" style="text-decoration: none;">落札する</a>
       </div>
