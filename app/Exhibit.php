@@ -19,12 +19,12 @@ session_start();
                 margin-right:-4%;margin-left:1.5px
             }
             body{
-              padding-top:4.8%;
+              padding-top:75px;
             }
         }
         @media screen and (max-width:991px){
             body{
-              padding-top:55%;
+              padding-top:230px;
             }
         }
         /* ヘッダー固定 */
@@ -37,32 +37,55 @@ session_start();
         }
         
     </style>
-    <header class="p-3 bg-dark text-white" id="header">
-      <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          
-              <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
-              id ="logo">
-              <img src="images/Logo.png" width="40" alt="ロゴ" class="ms-lg-0 me-3 me-lg-0">
-              <use xlink:href="#bootstrap"></use>
-              </a>
+<header class="p-3 bg-dark text-white" id="header">
+        <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+                id="logo">
+                <img src="./images/Logo.png" width="40" alt="ロゴ" class="ms-lg-0 me-3 me-lg-0">
+                <use xlink:href="#bootstrap"></use>
+                </a>
 
-              <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ml-0">
-              <li><a href="../ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
-              <li><a href="../Exhibit.php" class="nav-link px-2 text-white">商品を出品する</a></li>
-              </ul>
-          
-          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 ">
-          <input type="search" class="form-control form-control-dark" placeholder="検索..." aria-label="Search">
-          </form>
-          
-          <div class="text-end me-n5" id="headerBtn">
-          <button type="button" onclick="location.href='../MyPage.php'"
-            class="btn btn-outline-light me-2 me-lg-4">　　マイページ　　</button>
-          </div>
-          
-      </div>
-      </div>
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ml-0">
+                <li><a href="./ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
+                <?php
+                  if($loginFlag == false){
+                    //セッションがあれば
+                    echo '<li><a href="./Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>';
+                  }else{
+                    echo '<li><a href="./Exhibit.php" class="nav-link px-2 text-white">商品を出品する</a></li>';
+                  }
+                ?>
+                
+                </ul>
+            
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+            <input type="search" class="form-control form-control-dark" placeholder="検索..." aria-label="Search">
+            </form>
+            
+            <div class="text-end me-n5" id="headerBtn">
+              
+            <?php
+              if($loginFlag == false){
+                //セッションがあれば
+                echo '<button type="button" onclick="location.href=' , "'./Login.php'" , '" 
+                class="btn btn-outline-light me-2">ログイン</button>',
+                '<button type="button" onclick="location.href=' ,"'./Register.php'" ,'" 
+                class="btn btn-warning">新規登録</button>';
+              }else{
+                //ログアウトボタン
+                echo '<form action="" method="post">';
+                echo '<button type="submit" onclick="location.href=' , "'./MyPage.php'" , '"
+                class="btn btn-outline-light me-2 me-lg-4" name="logoutBtn">　　ログアウト　　</button>';
+                echo '</form>';
+              }
+            ?>
+            
+            </div>
+            
+        </div>
+        </div>
     </header><!-- ↑ ヘッダー -->
 </head>
 <body>
