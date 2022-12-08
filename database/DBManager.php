@@ -32,6 +32,17 @@
       $selectdata = $ps->fetchAll();
       return $selectdata;
     }
+    //キーワードで商品検索
+    public function getProductListByKey($key){
+      $pdo = $this->dbConnect();
+      $sql = "SELECT * FROM Product WHERE product_name LIKE ? OR product_description LIKE ?";
+      $ps= $pdo->prepare($sql);
+      $ps -> bindValue(1,"%$key%",PDO::PARAM_STR);
+      $ps -> bindValue(2,"%$key%",PDO::PARAM_STR);
+      $ps -> execute();
+      $selectdata = $ps->fetchAll();
+      return $selectdata;
+    }
 
     //新規登録
     public function setUser($mail,$pass){
@@ -90,6 +101,16 @@
       //   return false;
       // }
       return true;
+  }
+  //終了日時で売り切れフラグ更新
+  public function updateSold_out(){
+    $pdo = $this->dbConnect();
+    $sql ="UPDATE Product SET sold_out=?  WHERE end_date <= ?";
+
+    $ps = $pdo->prepare($sql);
+    $ps->bindValue(1,1, PDO::PARAM_INT);
+    $ps->bindValue(2,date('Y-m-d'), PDO::PARAM_STR);
+    $ps->execute();
   }
 
     // public function productExhibit($product_id, $image, $product_name, $product_description, $){
