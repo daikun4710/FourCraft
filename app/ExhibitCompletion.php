@@ -3,7 +3,7 @@ session_start();
 require_once '../database/DBManager.php';
 $dbmng = new DBManager();
 
-$product_id = $_POST['product_id'];
+$product_id = $_GET['product_id'];
 //$product_id = $_GET['product_id'];
 //即決価格を取得
 $productArray = $dbmng->getProductListByProduc_id($product_id);
@@ -294,8 +294,7 @@ $loginFlag = false;
                         </div>
                     </div>
                    <div id="bb"> 
-                      <button type="button" class="btn btn-primary btn-lg" id="button">出品した商品を確認する</button><br>
-                      <button type="button" class="btn btn-secondary" id="button">続けて確認する</button><br>
+                      <button type="button" class="btn btn-secondary" id="button" onclick="location.href='./ProductList.php'">ホームに戻る</button><br>
                    </div> 
                 </div>
                      
