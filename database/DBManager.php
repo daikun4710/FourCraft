@@ -133,33 +133,5 @@
       $ps->execute();
     }
 
-<<<<<<< HEAD
-    // public function ProductDetail($product_id){
-    //   $pdo = $this->dbConnect();
-    //   $sql = "SELECT * FROM Product WHERE product_id = ?";
-    //   $ps = $pdo->prepare($sql);
-    //   $ps->bindValue(1, $product_id, PDO::PARAM_INT);
-    //   $ps->execute();
-    //   $selectdata = $ps->fetchAll();
-    //   return $selectdata;
-    // }
-
-=======
-    
-    //誰が出品したか
-    public function userExhibit($exhibit_user_id){
-      $pdo = $this->dbConnect();
-      $selectSQL = "SELECT product_id FROM Product";
-      $product_id = $pdo->query($selectSQL);
-
-      $sql ="INSERT INTO Exhibit (product_id, exhibit_user_id) VALUES (?,?)";
-      $ps = $pdo->prepare($sql);
-      $ps->bindValue(1, $product_id, PDO::PARAM_STR);
-      //sessionIDで取得する↓
-      $ps->bindValue(2, $exhibit_user_id, PDO::PARAM_STR);
-      $ps->execute();
-    }
->>>>>>> 8ba7ab425b8ced2d1a2b73bb3ba79ffb7d9e5f61
-
   }
 ?>
