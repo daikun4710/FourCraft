@@ -102,6 +102,16 @@
       // }
       return true;
   }
+  //終了日時で売り切れフラグ更新
+  public function updateSold_out(){
+    $pdo = $this->dbConnect();
+    $sql ="UPDATE Product SET sold_out=?  WHERE end_date <= ?";
+
+    $ps = $pdo->prepare($sql);
+    $ps->bindValue(1,1, PDO::PARAM_INT);
+    $ps->bindValue(2,date('Y-m-d'), PDO::PARAM_STR);
+    $ps->execute();
+  }
 
     // public function productExhibit($product_id, $image, $product_name, $product_description, $){
     //   $pdo = $this->dbConnect();

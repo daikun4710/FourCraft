@@ -11,6 +11,7 @@
     header("Location: Login.php");
     exit();
   }
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -137,11 +138,14 @@
       if (isset($_POST['search']) ==false) {
         //検索されていないとき
         $searchArray = $dbmng->getProductList();
+        $dbmng -> updateSold_out();
       }else if(isset($_POST['search']) == true){
         //検索されたとき
         $searchArray = $dbmng->getProductListByKey($_POST['key']);
       }
         foreach($searchArray as $row){
+
+
 
           // echo "<img src="."data:image/jpg;"."base64,".$img.">";
           echo '<div class="col">';
