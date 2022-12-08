@@ -1,5 +1,20 @@
 <?php
-    session_start();
+session_start();
+require_once '../database/DBManager.php';
+$dbmng = new DBManager();
+$product_id = $_GET['product_id'];
+$productArray = $dbmng->getProductListByProduc_id($product_id);
+
+foreach ($productArray as $row) {
+    $image = $row['image'];//画像
+    $product_name = $row['product_name'];//商品名
+    $product_description = $row['product_description']; //商品説明
+    $buyout_price = $row['buyout_price']; //即決価格
+    $current_price = $row['current_price']; //現在価格
+    $sold_out= $row['sold_out']; //売り切れフラグ 0 or 1
+    $category= $row['category']; //カテゴリ
+    $condition= $row['condition']; //商品の状態
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -10,6 +25,16 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <title>商品詳細購入未確定ページ</title>
   <style>
+
+.gazou{
+        height: 350px;
+        width: auto;
+        /* background-color: #D9D9D9; */
+        margin-top: 10px;
+        font-size: 20px;
+        
+        position: relative;
+    }
 
       #ProductDetailUnconfirmed_syohinmei{
           width: auto;
@@ -38,7 +63,6 @@
     #ProductDetailUnconfirmed_syohingazou{
         height: 100%;
         width: auto;
-        background-color: #D9D9D9;
         margin-top: 10px;
         font-size: 20px;
         margin-left: 10px;
@@ -400,8 +424,8 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ml-0">
-                <li><a href="http://localhost/FourCraft/app/ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
-                <li><a href="http://localhost/FourCraft/app/Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>
+                <li><a href="./ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
+                <li><a href="./Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>
                 </ul>
             
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -419,29 +443,19 @@
         </div>
     </header>↑ ヘッダー
 
-    <?php
-        $product_id = $_GET['product_id'];
-        echo $product_id;
-        require_once '../database/DBManager.php';
-        $dbmng = new DBManager();
-        $searchArray = $dbmng->getProductListByProduc_id($product_id);
-
-    ?>
-
-<?php echo $searchArray['product_name'] ?>
   <div class="containaer-fluid">
   <div id="ProductDetailUnconfirmed_syohinmei">
-    <h1 id="ProductDetailUnconfirmed_syohin"><?php echo $product_name ?></h1>
+    <h1 id="ProductDetailUnconfirmed_syohin">　<?php echo $product_name; ?></h1>
   </div>
 <div class="row">
   <div class="col-lg-5">
   <div id="ProductDetailUnconfirmed_syohingazou">
-    <div class="gazou">
-        <?php
-            $img = base64_encode($image);
-            echo '<img src='.'"data:image/jpg;'.'base64,'.$img.'"'.'class="bd-placeholder-img card-img-top" width="100%" height="100% xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"'.'>';
-        ?>
-    </div>
+  <div class="gazou">
+                    <?php
+                        $img = base64_encode($image);
+                        echo '<img src='.'"data:image/jpg;'.'base64,'.$img.'"'.'class="bd-placeholder-img card-img-top" width="100%" height="100% xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"'.'>';
+                        ?>
+                        </div>
   </div>
   </div>
 
@@ -449,11 +463,11 @@
     <div style="display: flex;">
         <div id="ProductDetailUnconfirmed_genzaikakaku">現在価格：
     </div>
-        <u id="ProductDetailUnconfirmed_genzaikakaku"><?php echo $current_price ?></u>
+        <u id="ProductDetailUnconfirmed_genzaikakaku"><?php echo $current_price; ?>円</u>
     </div>
     <div style="display: flex;">
         <div id="ProductDetailUnconfirmed_sokketukakaku">即決価格：</div>
-        <u id="ProductDetailUnconfirmed_sokketukakaku"><?php echo $buyout_price ?></u>
+        <u id="ProductDetailUnconfirmed_sokketukakaku"><?php echo $buyout_price; ?>円</u>
     </div>
         <div style="display:flex;">
         
@@ -490,13 +504,13 @@
       <thead>
     <tr>
       <th width="30%">カテゴリ</th>
-      <th width="70%"><?php echo "　".$category ?></th>
+      <th width="70%"><?php echo $category; ?></th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>状態</th>
-      <td><?php echo "　".$condition ?></td>
+      <td><?php echo $condition; ?></td>
     </tr>
   </tbody>
 
@@ -504,7 +518,7 @@
 </div>
 
   </div>
-    <div id="ProductDetailUnconfirmed_syohinsestumei"><?php echo "　".$product_description ?></div>
+    <div id="ProductDetailUnconfirmed_syohinsestumei"><?php echo $product_description; ?></div>
     </div>
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

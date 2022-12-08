@@ -3,17 +3,19 @@ session_start();
 require_once '../database/DBManager.php';
 $dbmng = new DBManager();
 
-$product_id = $_GET['product_id'];
+$product_id = 1;
+//$product_id = $_GET['product_id'];
 //即決価格を取得
 $productArray = $dbmng->getProductListByProduc_id($product_id);
 foreach ($productArray as $row) {
   $buyout_price= $row['buyout_price'];
 }
 //落札処理 
-//！！！！！　$_POST['buyBtn']　は仮名！！！！
 if(isset($_POST['buyBtn'])){
-  $result=$dbmng->productBidDecide($buyout_price,true,$_SESSION['id'],$product_id);
+  $sold_out=1;
+  $result=$dbmng->productBidDecide($buyout_price,$sold_out,$_SESSION['id'],$product_id);
   if($result == true){
+    $_SESSION['amount'] =$buyout_price;//金額をセッションで次ページへ
     header("Location: DicideCompletion.php");
   }else{
     echo "<script> alert('落札できませんでした。');
@@ -178,7 +180,10 @@ if(isset($_POST['buyBtn'])){
       </div>
 
       <p>
+
+      <form method="post" action="" name="BuyForm">
       <div class="button_solid001" style="margin-top: 50px;">
+<<<<<<< HEAD
 <<<<<<< HEAD
         <a href="#" style="text-decoration: none;">落札する</a>
       </div>
@@ -192,7 +197,12 @@ if(isset($_POST['buyBtn'])){
 </body>
 =======
         <a href="DicideCompletion.php" style="text-decoration: none;">落札する</a>
+=======
+        <input type="hidden" name="buyBtn">
+        <a href="javascript:BuyForm.submit()" style="text-decoration: none;">落札する</a>
+>>>>>>> dc6281b6abac0c64d8218aa1cc78bab3b22cd3a5
       </div>
+      </form>
       </p>
 
 </main>

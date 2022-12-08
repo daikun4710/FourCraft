@@ -3,21 +3,23 @@ session_start();
 require_once '../database/DBManager.php';
 $dbmng = new DBManager();
 
-$product_id = $_GET['product_id'];
+$product_id = 1;
+//$product_id = $_GET['product_id'];
 //現在価格を取得
 $productArray = $dbmng->getProductListByProduc_id($product_id);
 foreach ($productArray as $row) {
   $current_price= $row['current_price'];
 }
 //入札処理 
-if(isset($_POST['BidBtn']==true)){
+if(isset($_POST['BidBtn'])){
   if($_POST['amountBid']>$current_price){
     
-    $sold_out=false; //売り切れフラグ
-    $amount = $_POST['BidBtn'];  //入札金額
+    $sold_out=0; //売り切れフラグ
+    $amount = $_POST['amountBid'];  //入札金額
    
     $result=$dbmng->productBidDecide($amount,$sold_out,$_SESSION['id'],$product_id);
     if($result == true){
+      $_SESSION['amount'] =$amount;//入札金額をセッションで次ページへ
       header("Location: BidCompletion.php");
     }else{
       echo "<script> alert('入札できませんでした。');
