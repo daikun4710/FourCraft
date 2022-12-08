@@ -114,7 +114,7 @@ session_start();
       <div class="col-md-9">
 
     
-    <fom action="ExhibitCompletion.php" enctype="multipart/form-data" method="post">
+    <form action="ExhibitCompletion.php" enctype="multipart/form-data" method="post">
 
       <div class="row featurette">
 
@@ -136,15 +136,15 @@ session_start();
           
           <div style="display: flex;" class="mb-1">
             <label for="country" class="form-label">カテゴリ　　　</label>
-            <select class="form-select" id="country" required="" wtx-context="2680039D-EAD9-4146-A7F1-3D74F8918917">
+            <select class="form-select" id="country" required="" wtx-context="2680039D-EAD9-4146-A7F1-3D74F8918917" name="category">
               <option value="">選択...</option>
-              <option>服</option>
-              <option>靴</option> 
-              <option value="">アクセサリー</option>
-              <option value="">グッズ</option>
+              <option value="服">服</option>
+              <option value="靴">靴</option> 
+              <option value="アクセサリー">アクセサリー</option>
+              <option value="グッズ">グッズ</option>
             </select>
             <div class="invalid-feedback">
-              Please select a valid country.
+              選択してください
             </div>
           </div>
           
@@ -153,13 +153,13 @@ session_start();
             <label for="country" class="form-label">商品の状態　</label>
             <select class="form-select" id="country" required="" wtx-context="2680039D-EAD9-4146-A7F1-3D74F8918917">
               <option value="">選択...</option>
-              <option>新品</option>
-              <option>使用感あり</option> 
-              <option value="">傷あり</option>
-              <option value="">ボロボロ</option>
+              <option value="新品">新品</option>
+              <option value="使用感あり">使用感あり</option> 
+              <option value="傷あり">傷あり</option>
+              <option value="ボロボロ">ボロボロ</option>
             </select>
             <div class="invalid-feedback">
-              Please select a valid country.
+              選択してください
             </div>
           </div>
           
@@ -200,10 +200,11 @@ session_start();
       </div>
       
       <div class="d-grid gap-2 col-3 mx-auto">
-        <button class="btn btn-lg btn-info btn-opacity-50" type="button">出品する</button>
+        <!-- <button class="btn btn-lg btn-info btn-opacity-50" type="button">出品する</button> -->
+        <input type="submit" value="出品する" class="btn btn-lg btn-info btn-opacity-50">
       </div>
     </div>
-  </fom>
+  </form>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
 </body>
