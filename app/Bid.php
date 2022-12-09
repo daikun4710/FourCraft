@@ -1,10 +1,15 @@
 <?php
 session_start();
+if(isset($_SESSION['id']) == false ){
+  //セッションがすでにあれば
+    header("Location: Login.php");
+    exit();
+  }
 require_once '../database/DBManager.php';
 $dbmng = new DBManager();
 
-$product_id = 1;
-//$product_id = $_GET['product_id'];
+// $product_id = 1;
+$product_id = $_GET['product_id'];
 //現在価格を取得
 $productArray = $dbmng->getProductListByProduc_id($product_id);
 foreach ($productArray as $row) {
@@ -127,7 +132,7 @@ if(isset($_POST['BidBtn'])){
 
     <div>
       <h2 class="title">入札</h2>
-      <a href="ProductDetailUnconfirmed.php" class="menu-item" style="text-decoration: none;">×</a>
+      <a href="ProductDetailUnconfirmed.php?product_id=<?php echo $product_id; ?>" class="menu-item" style="text-decoration: none;">×</a>
     </div>
 
   <!-- </header> -->

@@ -11,6 +11,7 @@
     header("Location: Login.php");
     exit();
   }
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -21,6 +22,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <title>商品一覧ページ</title>
   <style>
+    a{
+      text-decoration: none;
+    }
   /* 992px以上の時に適用 */
         @media screen and (min-width:992px){
             #logo{
@@ -47,7 +51,7 @@
         <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+                <a href="./ProductList.php" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
                 id="logo">
                 <img src="./images/Logo.png" width="40" alt="ロゴ" class="ms-lg-0 me-3 me-lg-0">
                 <use xlink:href="#bootstrap"></use>
@@ -65,9 +69,11 @@
                 ?>
                 
                 </ul>
-            
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-            <input type="search" class="form-control form-control-dark" placeholder="検索..." aria-label="Search">
+            <!-- 検索 -->
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="" method="POST"> 
+            <input type="search" class="form-control form-control-dark" placeholder="検索..." aria-label="Search"
+            name ="key">
+            <input type="submit"  name="search" style="display:none;" /> 
             </form>
             
             <div class="text-end me-n5" id="headerBtn">
@@ -108,7 +114,7 @@
   </section>
 
   <div class="album py-5 bg-light">
-    <div class="container">
+    <div class="container" style="margin-top: 50px;">
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         
@@ -117,7 +123,6 @@
             <div class="card shadow-sm">
               <img src="../file/switch.jpg" class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
             </rect></svg>
-
               <div class="card-body">
                 <p class="card-text">商品名</p>
                 <div class="d-flex justify-content-between align-items-center">
@@ -132,16 +137,31 @@
         <?php
         require_once '../database/DBManager.php';
         $dbmng = new DBManager();
-      
+      if (isset($_POST['search']) ==false) {
+        //検索されていないとき
         $searchArray = $dbmng->getProductList();
 
+        $dbmng -> updateSold_out();
+      }else if(isset($_POST['search']) == true){
+        //検索されたとき
+        $searchArray = $dbmng->getProductListByKey($_POST['key']);
+      }
         foreach($searchArray as $row){
+          $product_id = $row['product_id'];
+          // echo $product_id;
+
+
 
           // echo "<img src="."data:image/jpg;"."base64,".$img.">";
           echo '<div class="col">';
           echo '<div class="card shadow-sm">';
           $img = base64_encode($row['image']);
-          // echo '<div class="bd-placeholder-img card-img-top" width="400" height="400">';
+          echo '<div class="bd-placeholder-img card-img-top" width="400" height="400">';
+          if($row['sold_out'] == true){
+          echo '<a href="./ProductDetailConfirmed.php?product_id='.$product_id.'">';
+          }else if($row['sold_out'] == false){
+            echo '<a href="./ProductDetailUnconfirmed.php?product_id='.$product_id.'">';
+          }
           echo '<img src='.'"data:image/jpg;'.'base64,'.$img.'"'.'class="bd-placeholder-img card-img-top" width="100%" height="300 xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"'.'>';
           // echo '</div>';
           echo '<div class="card-body">';
@@ -149,10 +169,17 @@
           echo '</div>';
           echo '<div class="d-flex" , "justify-content-between" , "align-items-center">';
           // echo '<small class="text-muted">'."現在:".'<font color=#ff0000>'.$row['current_price'].'円';
-          echo '<small class="text-price">'.'<font-size=10px>'.'現在:'.'<font color=#ff0000>'.$row['current_price'].'円'.'</small>';
+
+          if($row['sold_out'] == true){
+              echo '<small class="text-price">'.'<font-size=10px>'.'<font color=#ff0000>'.'売り切れ'.'</small>';
+          }else if($row['sold_out'] == false){
+              echo '<small class="text-price">'.'<font-size=10px>'.'現在:'.'<font color=#ff0000>'.$row['current_price'].'円'.'</small>';
+            }
           echo '</div>';
           echo '</div>';
           echo '</div>';
+          echo '</div>';
+          echo '</a>';
 
 
           // if(sold_out == true){
@@ -162,7 +189,7 @@
           // }
 
         }
-
+      
         ?>
 
 

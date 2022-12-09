@@ -23,10 +23,12 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     exit();
 
   } catch (BadMethodCallException $bex) {
+      echo "<script> alert('メールアドレスが存在しません。');</script>";
       $msg='メールアドレスが存在しません。';
       echo '<script> console.log('.json_encode( $msg ).')</script>';
       // header('Location: Login.php');
   }catch(LogicException $lex){
+    echo "<script> alert('パスワードが一致しません。');</script>";
       $msg ='パスワードが一致しません';
       echo '<script> console.log('.json_encode( $msg ).')</script>';
       // header('Location: Login.php');

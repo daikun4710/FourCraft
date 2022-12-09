@@ -4,6 +4,17 @@ require_once '../database/DBManager.php';
 $dbmng = new DBManager();
 $product_id = $_GET['product_id'];
 $productArray = $dbmng->getProductListByProduc_id($product_id);
+$loginFlag = false;
+if(isset($_SESSION['id']) == true){
+  //セッションあり
+  $loginFlag =true;
+}
+if(isset($_POST['logoutBtn'])){
+    //ログアウト
+    session_destroy();
+    header("Location: Login.php");
+    exit();
+  }
 
 foreach ($productArray as $row) {
     $image = $row['image'];//画像
@@ -25,6 +36,16 @@ foreach ($productArray as $row) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <title>商品詳細購入未確定ページ</title>
   <style>
+
+.gazou{
+        height: 350px;
+        width: auto;
+        /* background-color: #D9D9D9; */
+        margin-top: 10px;
+        font-size: 20px;
+        
+        position: relative;
+    }
 
       #ProductDetailUnconfirmed_syohinmei{
           width: auto;
@@ -53,7 +74,6 @@ foreach ($productArray as $row) {
     #ProductDetailUnconfirmed_syohingazou{
         height: 100%;
         width: auto;
-        background-color: #D9D9D9;
         margin-top: 10px;
         font-size: 20px;
         margin-left: 10px;
@@ -372,7 +392,7 @@ foreach ($productArray as $row) {
         #ProductDetailUnconfirmed_genzaikakaku{
             margin-left:auto;
             margin-right:auto;
-            margin-top: 5%;
+            margin-top: 150px;
         }
       }
 
@@ -408,7 +428,7 @@ foreach ($productArray as $row) {
         <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+                <a href="./ProductList.php" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
                 id="logo">
                 <img src="./images/Logo.png" width="40" alt="ロゴ" class="ms-lg-0 me-3 me-lg-0">
                 <use xlink:href="#bootstrap"></use>
@@ -416,7 +436,15 @@ foreach ($productArray as $row) {
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ml-0">
                 <li><a href="./ProductList.php" class="nav-link px-2 text-white">FourCraft</a></li>
-                <li><a href="./Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>
+                <?php
+                  if($loginFlag == false){
+                    //セッションがあれば
+                    echo '<li><a href="./Login.php" class="nav-link px-2 text-white">商品を出品する</a></li>';
+                  }else{
+                    echo '<li><a href="./Exhibit.php" class="nav-link px-2 text-white">商品を出品する</a></li>';
+                  }
+                ?>
+                
                 </ul>
             
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -424,38 +452,60 @@ foreach ($productArray as $row) {
             </form>
             
             <div class="text-end me-n5" id="headerBtn">
-            <button type="button" onclick="location.href='../app/Login.php'" 
-            class="btn btn-outline-light me-2">ログイン</button>
-            <button type="button" onclick="location.href='../app/Register.php'" 
-            class="btn btn-warning">新規登録</button>
+              
+            <?php
+              if($loginFlag == false){
+                //セッションがあれば
+                echo '<button type="button" onclick="location.href=' , "'./Login.php'" , '" 
+                class="btn btn-outline-light me-2">ログイン</button>',
+                '<button type="button" onclick="location.href=' ,"'./Register.php'" ,'" 
+                class="btn btn-warning">新規登録</button>';
+              }else{
+                //ログアウトボタン
+                echo '<form action="" method="post">';
+                echo '<button type="submit" onclick="location.href=' , "'./MyPage.php'" , '"
+                class="btn btn-outline-light me-2 me-lg-4" name="logoutBtn">　　ログアウト　　</button>';
+                echo '</form>';
+              }
+            ?>
+            
             </div>
             
         </div>
         </div>
-    </header>↑ ヘッダー
+    </header><!-- ↑ ヘッダー -->
 
   <div class="containaer-fluid">
   <div id="ProductDetailUnconfirmed_syohinmei">
-    <h1 id="ProductDetailUnconfirmed_syohin">商品名</h1>
+    <h1 id="ProductDetailUnconfirmed_syohin">　<?php echo $product_name; ?></h1>
   </div>
 <div class="row">
   <div class="col-lg-5">
-  <div id="ProductDetailUnconfirmed_syohingazou">商品画像</div>
+  <div id="ProductDetailUnconfirmed_syohingazou">
+  <div class="gazou">
+                    <?php
+                        $img = base64_encode($image);
+                        echo '<img src='.'"data:image/jpg;'.'base64,'.$img.'"'.'class="bd-placeholder-img card-img-top" width="100%" height="100% xmlns="http://www.w3.org/2000/svg"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"'.'>';
+                        ?>
+                        </div>
+  </div>
   </div>
 
   <div class="col-lg-7">
     <div style="display: flex;">
         <div id="ProductDetailUnconfirmed_genzaikakaku">現在価格：
     </div>
-        <u id="ProductDetailUnconfirmed_genzaikakaku">20000 円</u>
+        <u id="ProductDetailUnconfirmed_genzaikakaku"><?php echo $current_price; ?>円</u>
     </div>
     <div style="display: flex;">
         <div id="ProductDetailUnconfirmed_sokketukakaku">即決価格：</div>
-        <u id="ProductDetailUnconfirmed_sokketukakaku">1億 円</u>
+        <u id="ProductDetailUnconfirmed_sokketukakaku"><?php echo $buyout_price; ?>円</u>
     </div>
         <div style="display:flex;">
         
-        <a href="Bid.php" class="button">
+        <?php
+         echo '<a href="./Bid.php?product_id='.$product_id.'" class="button">';
+        ?>
             <span class="button__text">入札</span>
             <div class="materials">
                 <div class="materials__bar"></div>
@@ -468,7 +518,10 @@ foreach ($productArray as $row) {
                 <div class="materials__circle"></div>
             </div>
         </a>
-        <a href="Decide.php" class="button">
+        <?php
+        $product_id = $_GET['product_id'];
+        echo '<a href="./Decide.php?product_id='.$product_id.'" class="button">';
+        ?>
             <span class="button__text">今すぐ落札</span>
             <div class="materials">
                 <div class="materials__bar"></div>
@@ -488,13 +541,13 @@ foreach ($productArray as $row) {
       <thead>
     <tr>
       <th width="30%">カテゴリ</th>
-      <th width="70%">First</th>
+      <th width="70%"><?php echo $category; ?></th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>状態</th>
-      <td>Mark</td>
+      <td><?php echo $condition; ?></td>
     </tr>
   </tbody>
 
@@ -502,7 +555,7 @@ foreach ($productArray as $row) {
 </div>
 
   </div>
-    <div id="ProductDetailUnconfirmed_syohinsestumei">商品説明</div>
+    <div id="ProductDetailUnconfirmed_syohinsestumei"><?php echo $product_description; ?></div>
     </div>
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
