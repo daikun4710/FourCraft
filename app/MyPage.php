@@ -20,19 +20,30 @@ session_start();
           }
         }
         /* ヘッダー固定 */
-    .icon{
-      height: 100px;
-      width: 100px;
-      text-align: center;
-    }
-    .username{
-      font-size: 200%;
-    }
+   
+         @media screen and (min-width:992px){
+          .userin{
+            font-size: 200%;
+            text-align: center;
+            width: 30%;
+          }
+          #username{
+            font-size: 150%;
+            margin-bottom: 5%;
+          }
+         }
+
   </style>
 </head>
 <body>
-<image src="images/icon.png"name="icon">
-<span name="username">〇〇〇〇</span>
-
+  <div class="userin">
+    <div id="icon">
+      <img src="images/icon.png"width="150px"height="150px">
+    </div>
+    <p id="username">〇〇〇〇</p>
+    <p><a href="">出品商品</a></p><br>
+    <p><a href="">落札商品</a></p><br>
+    <p><a href="">ログアウト</a></p>
+  </div>
 </body>
 </html>
