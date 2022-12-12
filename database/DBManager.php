@@ -165,6 +165,20 @@
     //     $ps->execute();
     // }
 
+    public function exhibitMypage($user_id){
+      $pdo = $this->dbConnect();
+      $sql ="SELECT * FROM Product INNER JOIN Exhibit ON Product.product_id = Exhibit.product_id 
+             WHERE Exhibit.exhibit_user_id = ?";
+      $ps = $pdo->prepare($sql);
+      $ps->bindValue(1, $user_id, PDO::PARAM_INT);
+      $ps->execute();
+      $selectdata = $ps->fetchAll();
+      return $selectdata;
+
+
+
+    }
+
 
 
 }
