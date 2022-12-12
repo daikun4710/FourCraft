@@ -162,7 +162,20 @@
     $ps->bindValue(1,$product_id, PDO::PARAM_INT);
     $ps->execute();
   }  
-
+  
+  public function getProductListMaxBit($user_id){
+    $pdo = $this->dbConnect();
+    $sql ="SELECT * FROM Product AS P 
+    INNER JOIN Bid AS B
+    ON P.product_id = B.product_id
+    WHERE B.bit_user_id = ? AND P.sold_out=?";
+    $ps = $pdo->prepare($sql);
+    $ps->bindValue(1, $user_id, PDO::PARAM_INT);
+    $ps->bindValue(2, 0, PDO::PARAM_INT);
+    $ps->execute();
+    $selectdata = $ps->fetchAll();
+    return $selectdata;
+  }
 
       //テストインサート
     //   public function test($mail,$pass){
