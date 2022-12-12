@@ -232,8 +232,11 @@ $loginFlag = false;
                 
                 </ul>
             
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-            <input type="search" class="form-control form-control-dark" placeholder="検索..." aria-label="Search">
+            <!-- 検索 -->
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="./ProductList.php" method="POST"> 
+            <input type="search" class="form-control form-control-dark" placeholder="検索..." aria-label="Search"
+            name ="key">
+            <input type="submit"  name="search" style="display:none;" /> 
             </form>
             
             <div class="text-end me-n5" id="headerBtn">

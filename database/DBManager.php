@@ -154,6 +154,15 @@
     
 
   }
+  //商品IDで商品削除
+  public function deleteByProductId($product_id){
+    $pdo = $this->dbConnect();
+    $sql ="DELETE FROM Product WHERE product_id = ?";
+    $ps = $pdo->prepare($sql);
+    $ps->bindValue(1,$product_id, PDO::PARAM_INT);
+    $ps->execute();
+  }  
+
 
       //テストインサート
     //   public function test($mail,$pass){
@@ -165,7 +174,7 @@
     //     $ps->execute();
     // }
 
-
+    
 
 }
 
