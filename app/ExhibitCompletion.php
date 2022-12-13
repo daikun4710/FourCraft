@@ -206,6 +206,15 @@ $loginFlag = false;
             width: 100%;
             }
         }
+
+        @media screen and (max-width:400px) { 
+            #shohinmei{
+                font-size: 30px;
+            }
+            #end{
+                font-size: 24px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -279,12 +288,13 @@ $loginFlag = false;
                 </div>
                 <div id="block">
                     <div class="center">
-                        <div class="yoko">
+                        
                         <div id="shohinmei">
                             <?php
                             echo "(商品名)　".$product_name ;
                             ?>
                         </div>
+                        <div class="yoko">
                             <div id="imgposi">
                                 <img src="images/hannma-.png" alt="ハンマの写真" id="exhibit_img"/>
                             </div>
