@@ -455,7 +455,7 @@ foreach ($productArray as $row) {
         <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+                <a href="./ProductList.php" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
                 id="logo">
                 <img src="./images/Logo.png" width="40" alt="ロゴ" class="ms-lg-0 me-3 me-lg-0">
                 <use xlink:href="#bootstrap"></use>
@@ -474,8 +474,11 @@ foreach ($productArray as $row) {
                 
                 </ul>
             
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-            <input type="search" class="form-control form-control-dark" placeholder="検索..." aria-label="Search">
+            <!-- 検索 -->
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="./ProductList.php" method="POST"> 
+            <input type="search" class="form-control form-control-dark" placeholder="検索..." aria-label="Search"
+            name ="key">
+            <input type="submit"  name="search" style="display:none;" /> 
             </form>
             
             <div class="text-end me-n5" id="headerBtn">

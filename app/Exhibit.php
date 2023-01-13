@@ -1,5 +1,41 @@
 <?php
 session_start();
+require_once '../database/DBManager.php';
+$dbmng = new DBManager();
+$loginFlag = false;
+if(isset($_SESSION['id']) == true){
+  //セッションあり
+  $loginFlag =true;
+}
+if(isset($_POST['logoutBtn'])){
+  //ログアウト
+  session_destroy();
+  header("Location: Login.php");
+  exit();
+}
+
+if(isset($_POST['btn'])){
+  if(is_uploaded_file( $_FILES['image']['tmp_name'])){
+    $image = file_get_contents($_FILES['image']['tmp_name']);
+    $product_name = $_POST['product_name'];
+    $product_description = $_POST['product_description'];
+    $buyout_price = $_POST['buyout_price'];
+    $current_price = $_POST['current_price'];
+    $category = $_POST['category'];
+    $condition = $_POST['condition'];
+    $end_date = $_POST['end_date'];
+
+    $dbmng->productExhibit($image, $product_name, $product_description, $buyout_price, $current_price, $category, $condition, $end_date);
+
+    $who = $dbmng->getProductListByProduct_name($product_name);
+    foreach ($who as $row) {
+      $product_id = $row['product_id'];//商品ID
+    }
+    $dbmng->userExhibit($_SESSION['id'], $product_id);
+    // $dbmng->test($_POST['category'],$_POST['condition']);
+    header('Location: ExhibitCompletion.php?product_id='.$product_id);
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -41,7 +77,7 @@ session_start();
         <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+                <a href="./ProductList.php" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
                 id="logo">
                 <img src="./images/Logo.png" width="40" alt="ロゴ" class="ms-lg-0 me-3 me-lg-0">
                 <use xlink:href="#bootstrap"></use>
@@ -60,8 +96,11 @@ session_start();
                 
                 </ul>
             
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-            <input type="search" class="form-control form-control-dark" placeholder="検索..." aria-label="Search">
+            <!-- 検索 -->
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="./ProductList.php" method="POST"> 
+            <input type="search" class="form-control form-control-dark" placeholder="検索..." aria-label="Search"
+            name ="key">
+            <input type="submit"  name="search" style="display:none;" /> 
             </form>
             
             <div class="text-end me-n5" id="headerBtn">
@@ -88,50 +127,39 @@ session_start();
         </div>
     </header><!-- ↑ ヘッダー -->
 </head>
-<body>
-
-  <div class="container-fluid">
-    <div class ="row">
-      <div class="h1 col-12 themed-grid-col text-center 
-      bg-warning bg-opacity-50 mb-0">商品情報入力</div>
-      <div class="h3 col-12 themed-grid-col 
-      bg-secondary bg-opacity-10">商品の情報</div>
-    </div>
-
-      <div class="col-md-3">
-        <div class="mb-3">
-          <!-- <form action="" enctype="multipart/form-data" method="post"> -->
-          <label for="formFile" class="form-label">画像を登録</label>
-          <input class="form-control" type="file" id="formFile" name="productImg">
-          <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="submit" 
-            class="btn btn-info btn-opacity-50 mt-1">アップロード</button>
-          </div> -->
-          <!-- </form> -->
-        </div>
-        <img src="" alt="" class="img-fluid" width="300px">
+  <body>
+    <div class="container-fluid">
+      <div class ="row">
+        <div class="h1 col-12 themed-grid-col text-center
+        bg-warning bg-opacity-50 mb-0">商品情報入力</div>
+        <div class="h3 col-12 themed-grid-col
+        bg-secondary bg-opacity-10">商品の情報</div>
       </div>
-      <div class="col-md-9">
-
-    
-    <form action="ExhibitCompletion.php" enctype="multipart/form-data" method="post">
-
       <div class="row featurette">
 
-        <div class="col-md-3">
+
+
+      <div class="col-md-3">
           <div class="mb-3">
+
+            <form action="" enctype="multipart/form-data" method="post">
             <label for="formFile" class="form-label">画像を登録</label>
             <input class="form-control" type="file" id="formFile" name="image">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            </div>
+            <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button type="submit"
+              class="btn btn-info btn-opacity-50 mt-1">アップロード</button>
+            </div> -->
+            <!-- </form> -->
           </div>
           <img src="" alt="" class="img-fluid" width="300px">
         </div>
         <div class="col-md-9">
 
-          <div class="form-group mb-1" style="display: flex;">
+
+
+        <div class="form-group mb-1" style="display: flex;">
             <label for="text1">商品名　　　</label>
-            <input type="text" id="text1" name="product_name" class="form-control">
+            <input type="text" id="text1" class="form-control" name="product_name">
           </div>
           
           <div style="display: flex;" class="mb-1">
@@ -139,9 +167,10 @@ session_start();
             <select class="form-select" id="country" required="" wtx-context="2680039D-EAD9-4146-A7F1-3D74F8918917" name="category">
               <option value="">選択...</option>
               <option value="服">服</option>
-              <option value="靴">靴</option> 
+              <option value="靴">靴</option>
               <option value="アクセサリー">アクセサリー</option>
               <option value="グッズ">グッズ</option>
+              <option value="その他">その他</option>
             </select>
             <div class="invalid-feedback">
               選択してください
@@ -149,12 +178,14 @@ session_start();
           </div>
           
 
-          <div style="display: flex;" class="mb-1">
+
+
+        <div style="display: flex;" class="mb-1">
             <label for="country" class="form-label">商品の状態　</label>
-            <select class="form-select" id="country" required="" wtx-context="2680039D-EAD9-4146-A7F1-3D74F8918917">
+            <select class="form-select" id="country" required="" wtx-context="2680039D-EAD9-4146-A7F1-3D74F8918917" name="condition">
               <option value="">選択...</option>
               <option value="新品">新品</option>
-              <option value="使用感あり">使用感あり</option> 
+              <option value="使用感あり">使用感あり</option>
               <option value="傷あり">傷あり</option>
               <option value="ボロボロ">ボロボロ</option>
             </select>
@@ -165,12 +196,14 @@ session_start();
           
       </div>
 
-      <div class="col-1 mb-1">
+
+
+    <div class="col-1 mb-1">
         <p>価格</p>
       </div>
       <div class="col-md-5 col-11 mb-1">
             <div class="form-group" style="display: flex;">
-              <input type="number" id="text1" name="current_price" class="form-control">
+              <input type="number" id="text1" class="form-control" name="current_price">
             </div>
       </div>
       
@@ -179,18 +212,22 @@ session_start();
       </div>
       <div class="col-md-5 col-11 mb-1">
         <div class="form-group" style="display: flex;">
-          <input type="number" id="text1" name="buyout_price" class="form-control">
+          <input type="number" id="text1" class="form-control" name="buyout_price">
         </div>
       </div>
 
-      <div class="col-1 mb-1">
+
+
+    <div class="col-1 mb-1">
         <p>終了日時</p>
       </div>
       <div class ="col-11 mb-1">
         <input type="date" name="end_date">
       </div>
 
-      <div class="col-1 mb-1">
+
+
+    <div class="col-1 mb-1">
         <p>商品説明</p>
       </div>
       <div class ="col-11 mb-1">
@@ -201,11 +238,10 @@ session_start();
       
       <div class="d-grid gap-2 col-3 mx-auto">
         <!-- <button class="btn btn-lg btn-info btn-opacity-50" type="button">出品する</button> -->
-        <input type="submit" value="出品する" class="btn btn-lg btn-info btn-opacity-50">
+        <input type="submit" value="出品する" class="btn btn-lg btn-info btn-opacity-50" name="btn">
       </div>
     </div>
-  </form>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+  </body>
 </html>
